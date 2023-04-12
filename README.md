@@ -6,12 +6,13 @@
 WebLNP is a client-sided and Leaflet-based web viewer for line network maps using OpenStreetMaps
 with the ability to add historic maps and/or different transit maps per city.
 
-![](meta/header.png)
+[![](meta/header.png)](https://weblnp.gamingcraft.de/)
+> 📍 Albtalbahnhof, Karlsruhe – 2018
 
 ## Development setup
 To run the web server locally run this script.
 ```sh
-$ ./serve.sh
+$ bash serve.sh
 ```
 
 ## Meta
@@ -20,7 +21,7 @@ $ ./serve.sh
 [Ebou B.](https://www.instagram.com/ebou.bobb/) – [@ebou.bobb](https://www.instagram.com/ebou.bobb/)<br>
 [Justin O.](https://www.instagram.com/_justin_oltmann_/) – [@\_justin\_oltmann\_](https://www.instagram.com/_justin_oltmann_/)<br>
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
+Distributed under the MIT license. See ``LICENSE`` for more information.
 
 > **Warning**<br/>
 > The license does **not** apply to the `kml` folder and it's subfolders!
