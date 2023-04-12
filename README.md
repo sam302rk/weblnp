@@ -20,7 +20,7 @@ $ ./serve.sh
 [Ebou B.](https://www.instagram.com/ebou.bobb/) – [@ebou.bobb](https://www.instagram.com/ebou.bobb/)<br>
 [Justin O.](https://www.instagram.com/_justin_oltmann_/) – [@\_justin\_oltmann\_](https://www.instagram.com/_justin_oltmann_/)<br>
 
-Distributed under the MIT license. See ``LICENSE`` for more information.
+Distributed under the XYZ license. See ``LICENSE`` for more information.
 
 > **Warning**<br/>
 > The license does **not** apply to the `kml` folder and it's subfolders!
