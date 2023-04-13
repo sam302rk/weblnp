@@ -15,13 +15,27 @@ case $1 in
         echo "Starting local web server..."
         python -m http.server
     ;;
+
+    sort)
+        echo "Running sort script..."
+        cd kml
+        python sort.py
+        cd ..
+    ;;
     
     help)
-        echo "--- WEBLNP HELP ---"
-        echo "weblnp help - Shows you a list with commands"
-        echo "weblnp serve - Runs the local web server"
-        echo "weblnp exit - Reloads the dev enviroment."
-        echo "weblnp exit - Exits out of the dev enviroment and disables the weblnp command"
+        echo -e "__      __   _    _    _  _ ___   _  _     _"
+        echo -e "\ \    / /__| |__| |  | \| | _ \ | || |___| |_ __"
+        echo -e " \ \/\/ / -_) '_ \ |__| .\` |  _/ | __ / -_) | '_ \\"
+        echo -e "  \_/\_/\___|_.__/____|_|\_|_|   |_||_\___|_| .__/"
+        echo "                                            |_|"
+        echo " COMMAND           DESCRIPTION"
+        echo "=========         ============="
+        echo "weblnp help       Shows you a list with commands"
+        echo "weblnp serve      Runs the local web server"
+        echo "weblnp sort       Sorts KML files into city-folders"
+        echo "weblnp reload     Reloads the dev enviroment."
+        echo "weblnp exit       Exits out of the dev enviroment and disables the weblnp command"
     ;;
     
     *)
