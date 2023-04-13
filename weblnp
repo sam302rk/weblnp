@@ -1,0 +1,30 @@
+#!/bin/bash
+case $1 in
+    exit)
+        echo "Exiting dev enviroment..."
+        unset -f weblnp
+    ;;
+    
+    reload)
+        echo "Reloading dev enviroment..."
+        unset -f weblnp
+        source weblnp
+    ;;
+    
+    serve)
+        echo "Starting local web server..."
+        python -m http.server
+    ;;
+    
+    help)
+        echo "--- WEBLNP HELP ---"
+        echo "weblnp help - Shows you a list with commands"
+        echo "weblnp serve - Runs the local web server"
+        echo "weblnp exit - Reloads the dev enviroment."
+        echo "weblnp exit - Exits out of the dev enviroment and disables the weblnp command"
+    ;;
+    
+    *)
+        echo -n "Command unknown. Run 'weblnp help' for a list with commands."
+    ;;
+esac
