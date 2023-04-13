@@ -2,6 +2,7 @@ const languages = {
     "en-US": {
         "search.placeholder": "City...",
         "search.results": "--- Search results ---",
+        "search.display_window": "Change city...",
         "options.title": "--- City options ---",
         "options.layer.default": "Choose a layer...",
         "options.save": "Save"
@@ -9,6 +10,7 @@ const languages = {
     "de-DE": {
         "search.placeholder": "Stadt...",
         "search.results": "--- Suchergebnisse ---",
+        "search.display_window": "Stadt ändern...",
         "options.title": "--- Stadtoptionen ---",
         "options.layer.default": "Wähle eine Ebene...",
         "options.save": "Übernehmen"

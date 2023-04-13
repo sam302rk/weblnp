@@ -37,6 +37,12 @@ document.getElementById('variantSet').addEventListener('click', () => {
     const value = document.getElementById('variantSel').value
     if (value == 'Choose a map') return
     loadLayer(index.currentCity, value)
+    document.getElementById('variant_container').classList.add('hide')
+})
+
+document.getElementById('show_search_window').addEventListener('click', () => {
+    document.getElementById('search_container').classList.remove('mobile_hide')
+    document.getElementById('search_btn_container').classList.add('mobile_hide')
 })
 
 function loadLayer(name, layer) {
@@ -56,6 +62,9 @@ function citySearchResultClick(name) {
     document.getElementById(`${name}`).classList.add('active')
     if (ifnul(index.currentCity)) document.getElementById(index.currentCity).classList.remove('active')
     index.currentCity = name
+
+    document.getElementById('search_container').classList.add('mobile_hide')
+    document.getElementById('search_btn_container').classList.remove('mobile_hide')
 
     if (!index.cityData[name]) {
         document.getElementById('variant_container').classList.add('hide')

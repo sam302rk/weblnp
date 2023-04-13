@@ -23,7 +23,11 @@
         options.save: "Save"
     -->
 
-    <div class="container" style="top: 15px; right: 15px;">
+    <div class="container mobile_hide mobile" style="top: 15px; right: 15px;" id="search_btn_container">
+        <button class="i18n" id="show_search_window">search.display_window</button>
+    </div>
+
+    <div class="container" style="top: 15px; right: 15px;" id="search_container">
         <div class="citysearch window">
             <input type="text" id="citysearch_input" class="i18n_placeholder" placeholder="search.placeholder">
             <div class="ct"><b class="i18n">search.results</b></div>
@@ -32,7 +36,7 @@
         </div>
     </div>
 
-    <div class="container hide" style="top: 15px; left: 50vw; transform: translateX(-50%);" id="variant_container">
+    <div class="container hide" id="variant_container">
         <div class="variantsel window">
             <div style="margin-bottom: 6px;"><b class="i18n">options.title</b></div>
             <select id="variantSel">

@@ -16,6 +16,38 @@
     }
 }
 
+@media screen and (orientation:portrait) {
+    .citysearch.window {
+        max-width: 80vw !important;
+    }
+
+    #citysearch_input {
+        width: calc(80vw - 1em) !important;
+    }
+
+    #variant_container {
+        top: unset !important;
+        bottom: 45px !important;
+        left: 50vw !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .variantsel.window {
+        max-width: 70vw !important;
+        width: 70vw !important;
+    }
+
+    .mobile_hide {
+        display: none;
+        visibility: hidden;
+    }
+
+    .mobile {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
 body {
     margin: 0px;
 }
@@ -71,6 +103,12 @@ body {
     width: calc(25vw - 1em);
 }
 
+#variant_container {
+    top: 15px;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+
 .ct {
     text-align: center;
 }
@@ -106,6 +144,11 @@ body {
 }
 
 .hide {
+    display: none;
+    visibility: hidden;
+}
+
+.mobile {
     display: none;
     visibility: hidden;
 }
