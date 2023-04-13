@@ -72,4 +72,5 @@ $ git commit -a
 $ git push origin feature/fooBar
 
 # 5. Create a new pull request
+# https://github.com/samuel-302/weblnp/compare
 ```
