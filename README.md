@@ -15,7 +15,7 @@ with the ability to add historic maps and/or different transit maps per city.
 
 ```sh
 # Using the bash script
-$ bash serve.sh
+$ bash serve
 ```
 
 ```sh
