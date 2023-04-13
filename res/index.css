@@ -81,6 +81,7 @@ body {
     padding: .5em;
     overflow: hidden;
     backdrop-filter: blur(5px);
+    border-radius: 6px;
 }
 
 #citysearch_results {

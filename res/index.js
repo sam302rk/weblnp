@@ -1,7 +1,7 @@
 var map = L.map('map').setView([50.69, 9.77], 6.2)
 let index = {}
 let layers = []
-const template = name => `<div class="hvrc" id="${name}"><span class="hvr">-> </span><a onclick="citySearchResultClick('${name}', 'main')">${name}</a></div>`
+const template = (name, text) => `<div class="hvrc" id="${name}"><span class="hvr">-> </span><a onclick="citySearchResultClick('${name}', 'main')">${text}</a></div>`
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 16,
@@ -12,7 +12,7 @@ fetchText('kml/index.json', rawIndex => {
     index = JSON.parse(rawIndex)
     let results = ''
     index.cities.forEach(city => {
-        results += template(city)
+        results += template(city, city)
     })
     overwriteResults(results)
 })
@@ -27,7 +27,7 @@ document.getElementById('citysearch_input').addEventListener('input', () => {
     })
 
     matchingCities.forEach(city => {
-        results += template(city)
+        results += template(city, city.replace(regex, `<b>${input}</b>`))
     })
 
     overwriteResults(results)
