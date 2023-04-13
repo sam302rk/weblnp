@@ -46,22 +46,23 @@ document.getElementById('show_search_window').addEventListener('click', () => {
 })
 
 function loadLayer(name, layer) {
-    layers.forEach(layer => {
-        map.removeLayer(layer.layer)
-        document.getElementById(`${layer.name}`).classList.remove('active')
-        layers.pop(layer)
+    layers.forEach(l => {
+        map.removeLayer(l.layer)
+        document.getElementById(l.name).classList.remove('active')
+        layers.pop(l)
     })
 
     fetchKML(`kml/${name}/${layer}.kml`, r => {
         layers.push({ layer: r, name: name, add: layer })
+        document.getElementById(name).classList.add('active')
         map.addLayer(r)
     })
 }
 
 function citySearchResultClick(name) {
-    document.getElementById(`${name}`).classList.add('active')
     if (ifnul(index.currentCity)) document.getElementById(index.currentCity).classList.remove('active')
     index.currentCity = name
+    document.getElementById(`${name}`).classList.add('active')
 
     document.getElementById('search_container').classList.add('mobile_hide')
     document.getElementById('search_btn_container').classList.remove('mobile_hide')
