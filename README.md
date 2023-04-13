@@ -1,4 +1,4 @@
-<img align="left" src="meta/icon.png" width="120" alt="WebLNP's icon">
+[<img align="left" src="meta/icon.png" width="120" alt="WebLNP's icon">](https://weblnp.gamingcraft.de/)
 
 # [WebLNP](https://weblnp.gamingcraft.de/)
 > Leaflet-based line network map viewer 
