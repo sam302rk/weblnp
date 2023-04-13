@@ -27,7 +27,7 @@
         "Ulm",
         "Weiden",
         "Würzburg",
-        "Rhein-Neckar"
+        "S-Bahn"
     ],
     "cityData": {
         "Karlsruhe": {
@@ -49,9 +49,9 @@
                 "U-Bahn"
             ]
         },
-        "Rhein-Neckar": {
+        "S-Bahn": {
             "variants": [
-                "S-Bahn"
+                "Rhein-Neckar"
             ]
         },
         "Braunschweig": {
