@@ -56,6 +56,11 @@ function loadLayer(name, layer) {
         layers.push({ layer: r, name: name, add: layer })
         document.getElementById(name).classList.add('active')
         map.addLayer(r)
+
+        // TODO: Make async
+        for (let path of document.querySelectorAll('path.leaflet-interactive')) {
+            path.setAttribute('stroke-width', '3')
+        }
     })
 }
 
