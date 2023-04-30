@@ -87,6 +87,7 @@ body {
 #citysearch_results {
     max-height: 40vh;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 #citysearch_input {

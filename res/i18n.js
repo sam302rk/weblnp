@@ -1,5 +1,5 @@
 const languages = {
-    "en-US": {
+    "en-US": { // American English
         "search.placeholder": "City...",
         "search.results": "--- Search results ---",
         "search.display_window": "Change city...",
@@ -7,7 +7,7 @@ const languages = {
         "options.layer.default": "Choose a layer...",
         "options.save": "Save"
     },
-    "de-DE": {
+    "de-DE": { // German
         "search.placeholder": "Stadt...",
         "search.results": "--- Suchergebnisse ---",
         "search.display_window": "Stadt ändern...",
@@ -17,7 +17,13 @@ const languages = {
     }
 }
 
-const selectedLanguage = params.language || navigator.language || navigator.userLanguage || 'en-US'
+let selectedLanguage = params.language || navigator.language || navigator.userLanguage || 'en-US'
+
+// Fallback for web browsers or operating systems with different language formants.
+// NOTE: Depending on the future size of the constant languages an async rewrite or some other solution might be required.
+for (let lang in languages) {
+    if(lang.toString().includes(selectedLanguage)) selectedLanguage = lang.toString()
+}
 
 function tryTranslation(input) {
     return languages[selectedLanguage][input] || languages['en-US'][input] || input
