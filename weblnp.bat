@@ -42,5 +42,6 @@ echo.
 exit
 
 :choose_python
-echo Enter a python enviroment of your choice [default: python]:
+echo Enter a python enviroment of your choice:
+echo (Leave blank for default 'python'.)
 set /p pyenv= || set pyenv=python
