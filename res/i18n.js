@@ -5,7 +5,8 @@ const languages = {
         "search.display_window": "Change city...",
         "options.title": "--- City options ---",
         "options.layer.default": "Choose a layer...",
-        "options.save": "Save"
+        "options.save": "Load",
+        "error.confirm_upload": "A error occured.\nDo you wish to automatically report that error?\nOnly the error without any additional details will be sent out."
     },
     "de-DE": { // German
         "search.placeholder": "Stadt...",
@@ -13,7 +14,8 @@ const languages = {
         "search.display_window": "Stadt ändern...",
         "options.title": "--- Stadtoptionen ---",
         "options.layer.default": "Wähle eine Ebene...",
-        "options.save": "Übernehmen"
+        "options.save": "Übernehmen",
+        "error.confirm_upload": "Ein unerwarteter Fehler ist aufgetreten.\nMöchtest du, dass dieser automatisch gemeldet wird?\nNur der Fehler ohne zusätzliche Informationen wird versendet."
     }
 }
 

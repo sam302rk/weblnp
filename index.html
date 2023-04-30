@@ -17,14 +17,6 @@
 <body>
     <div id="map"></div>
 
-    <!-- 
-        search.placeholder: "City...",
-        search.results: "Search results",
-        options.title: "City options",
-        options.layer.default: "Choose a layer",
-        options.save: "Save"
-    -->
-
     <div class="container mobile_hide mobile" style="top: 15px; right: 15px;" id="search_btn_container">
         <button class="i18n" id="show_search_window">search.display_window</button>
     </div>
@@ -53,6 +45,48 @@
     <script src="res/L.KML.js"></script>
     <script src="res/utils.js"></script>
     <script src="res/i18n.js"></script>
+    <script type="module">
+        import { Octokit } from "https://cdn.skypack.dev/@octokit/core"
+
+        const client_token = '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'
+        let gh = new Octokit({ auth: client_token })
+
+        function create_issue(title, body) {
+            gh.request('POST /repos/{owner}/{repo}/issues', {
+                owner: 'samuel-302',
+                repo: 'weblnp',
+                title: title,
+                body: body,
+                assignees: [
+                    'samuel-302'
+                ],
+                headers: {
+                    'X-GitHub-Api-Version': '2022-11-28'
+                }
+            })
+        }
+
+        window.onerror = (msg, url, line, col, err) => {
+            const canReport = confirm(tryTranslation('error.confirm_upload'))
+            if (!canReport) return
+
+            create_issue(`(${err.name}) ${err.message}`, `### Meta
+Name: ${err.name}
+Message: ${err.message}
+Line: ${line}:${col}
+
+### Stack
+\`\`\`
+${err.stack}
+\`\`\``)
+        }
+
+        function error_handler_unit_test() {
+            throw new TypeError('unit test')
+        }
+
+        error_handler_unit_test()
+    </script>
     <script src="res/index.js"></script>
 </body>
 
