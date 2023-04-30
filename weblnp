@@ -22,6 +22,10 @@ case $1 in
         python sort.py
         cd ..
     ;;
+
+    license)
+        cat LICENSE
+    ;;
     
     help)
         echo -e "__      __   _    _    _  _ ___   _  _     _"
