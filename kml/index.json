@@ -31,6 +31,7 @@
     ],
     "cityData": {
         "Karlsruhe": {
+            "icon": "icon.svg",
             "variants": [
                 "2023",
                 "2021",
@@ -43,6 +44,7 @@
             ]
         },
         "Berlin": {
+            "icon": "icon.svg",
             "variants": [
                 "S-Bahn",
                 "Strassenbahn",
@@ -50,6 +52,7 @@
             ]
         },
         "S-Bahn": {
+            "icon": "icon.svg",
             "variants": [
                 "Rhein-Neckar"
             ]

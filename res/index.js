@@ -1,10 +1,11 @@
 var map = L.map('map').setView([50.69, 9.77], 6.2)
 let index = {}
 let layers = []
-const template = (name, text) => `<div class="hvrc" id="${name}"><span class="hvr">-> </span><a onclick="citySearchResultClick('${name}', 'main')">${text}</a></div>`
+const template = (name, text, icon) => `<div class="hvrc" id="${name}"><span class="hvr">-> </span><a onclick="citySearchResultClick('${name}', 'main')">${icon.exists ? `<img class="city_icon" src="/kml/${name}/${icon.url}">` : ''} ${text}</a></div>`
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 16,
+    minZoom: 6,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | &copy; Ebou B., Justin O.'
 }).addTo(map)
 
@@ -12,7 +13,7 @@ fetchText('kml/index.json', rawIndex => {
     index = JSON.parse(rawIndex)
     let results = ''
     index.cities.forEach(city => {
-        results += template(city, city)
+        results += generateCity(city, city)
     })
     overwriteResults(results)
 })
@@ -27,7 +28,7 @@ document.getElementById('citysearch_input').addEventListener('input', () => {
     })
 
     matchingCities.forEach(city => {
-        results += template(city, city.replace(regex, `<b>${input}</b>`))
+        results += generateCity(city, city.replace(regex, `<b>${input}</b>`))
     })
 
     overwriteResults(results)
@@ -44,6 +45,18 @@ document.getElementById('show_search_window').addEventListener('click', () => {
     document.getElementById('search_container').classList.remove('mobile_hide')
     document.getElementById('search_btn_container').classList.add('mobile_hide')
 })
+
+function generateCity(city, readable) {
+    let icon_data = { exists: false, url: '' }
+
+    if (index.cityData[city] && index.cityData[city].icon) {
+        icon_data.exists = true
+        icon_data.url = index.cityData[city].icon
+    }
+    
+    return template(city, readable, icon_data)
+    
+}
 
 function loadLayer(name, layer) {
     layers.forEach(l => {

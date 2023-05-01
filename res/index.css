@@ -210,3 +210,8 @@ select:hover {
 select:active {
     background-color: var(--background-active);
 }
+
+.city_icon {
+    width: .7em;
+    vertical-align: middle;
+}
