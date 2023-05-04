@@ -6,7 +6,7 @@ const languages = {
         "options.title": "--- City options ---",
         "options.layer.default": "Choose a layer...",
         "options.save": "Load",
-        "error.confirm_upload": "A error occured.\nDo you wish to automatically report that error?\nOnly the error without any additional details will be sent out."
+        "error.confirm_upload": "An error occured.\nDo you wish to automatically report that error?\nOnly the error without any additional details will be sent out."
     },
     "de-DE": { // German
         "search.placeholder": "Stadt...",
@@ -16,7 +16,16 @@ const languages = {
         "options.layer.default": "Wähle eine Ebene...",
         "options.save": "Übernehmen",
         "error.confirm_upload": "Ein unerwarteter Fehler ist aufgetreten.\nMöchtest du, dass dieser automatisch gemeldet wird?\nNur der Fehler ohne zusätzliche Informationen wird versendet."
-    }
+    },
+        "ro-RO": { // Romanian
+        "search.placeholder": "Oraș...",
+        "search.results": "--- Rezultatele căutării ---",
+        "search.display_window": "Schimbă orașul...",
+        "options.title": "--- Opțiunile orașului ---",
+        "options.layer.default": "Alege un strat...",
+        "options.save": "Încarcă",
+        "error.confirm_upload": "A apărut o eroare.\nVrei să raportezi eroarea automat?\nDoar eroarea fără alte detalii va fii timisă."
+    },
 }
 
 let selectedLanguage = params.language || navigator.language || navigator.userLanguage || 'en-US'
