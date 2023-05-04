@@ -72,7 +72,7 @@ function loadLayer(name, layer) {
 
         // TODO: Make async
         for (let path of document.querySelectorAll('path.leaflet-interactive')) {
-            path.setAttribute('stroke-width', '3')
+            path.setAttribute('stroke-width', '5')
         }
     })
 }
