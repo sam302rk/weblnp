@@ -1,7 +1,6 @@
-#!/bin/bash
 echo "WebLNP's dev enviroment is now availible via 'weblnp'"
 echo "Use 'weblnp help' for a list with commands and exit using 'weblnp exit'."
 
 function weblnp() {
-    /bin/bash weblnp $1
+    ./weblnp $1
 }
