@@ -64,10 +64,11 @@ $ git push origin feature/fooBar
 
 ## Meta
 
-### Authors:
-- [Samuel302](https://www.github.com/samuel-302) – [@sam302rk](https://instagram.com/sam302rk)
-- [Ebou B.](https://www.instagram.com/ebou.bobb/) – [@ebou.bobb](https://www.instagram.com/ebou.bobb/)
-- [Justin O.](https://www.instagram.com/_justin_oltmann_/) – [@\_justin\_oltmann\_](https://www.instagram.com/_justin_oltmann_/)
+### Contributors
+- [Samuel M.](https://www.github.com/samuel-302) – [@sam302rk](https://instagram.com/sam302rk)
+- Ebou B. – [@ebou.bobb](https://www.instagram.com/ebou.bobb/)
+- Justin O. – [@\_justin\_oltmann\_](https://www.instagram.com/_justin_oltmann_/)
+- [Mario C.](https://github.com/marioboss56) - [@Mariology](https://soundcloud.com/riomusic01)
 
 Distributed under the MIT license. See [``LICENSE``](https://github.com/samuel-302/weblnp/blob/main/LICENSE) for more information.
 
