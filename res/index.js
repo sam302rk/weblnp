@@ -1,7 +1,7 @@
 var map = L.map('map').setView([50.69, 9.77], 6.2)
 let index = {}
 let layers = []
-const template = (name, text, icon) => `<div class="hvrc" id="${name}"><span class="hvr">-> </span><a onclick="citySearchResultClick('${name}', 'main')">${icon.exists ? `<img class="city_icon" src="/kml/${name}/${icon.url}">` : ''} ${text}</a></div>`
+const template = (name, text, icon) => `<div class="hvrc" id="${name}"><span class="hvr">-> </span><a onclick="citySearchResultClick('${name}', 'main')">${icon.exists ? `<img class="city_icon" src="/kml/${name}/${icon.url}">` : ''} ${tryTranslation(text)}</a></div>`
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 16,
