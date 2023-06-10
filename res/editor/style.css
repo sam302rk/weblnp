@@ -1,5 +1,6 @@
 @import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 
 html {
     scroll-behavior: smooth;
@@ -24,7 +25,7 @@ p {
 
     display: grid;
     grid:
-        "top top top" 40px
+        "top top top" auto
         "left map right" 1fr
         "left bottom right" 16em
         / auto 0.8fr auto;
@@ -35,12 +36,9 @@ div.tabs {
     display: flex;
 }
 
-div.tabs * {
+div.tabs button {
     display: inline-block;
     flex-grow: 1;
-}
-
-div.tabs button {
     border-style: none;
     background-color: var(--ctp-mocha-mantle);
     color: var(--ctp-mocha-subtext0);
@@ -48,6 +46,7 @@ div.tabs button {
     border-right-style: solid;
     border-right-width: 4px;
     border-right-color: var(--ctp-mocha-mantle);
+    padding: 6px 0px;
 }
 
 div.tabs button:hover {
@@ -107,15 +106,15 @@ span {
     color: var(--ctp-mocha-subtext0);
 }
 
-.menuitem.can_hover {
+.menuitem.can_hover * {
     color: var(--ctp-mocha-text);
 }
 
-button.menuitem.can_hover:hover {
+button.menuitem.can_hover:hover * {
     color: var(--ctp-mocha-lavender);
 }
 
-button.menuitem.can_hover:active {
+button.menuitem.can_hover:active * {
     color: var(--ctp-mocha-blue);
 }
 
@@ -125,6 +124,11 @@ button.menuitem.can_hover:active {
 
 .top {
     grid-area: top;
+    overflow: scroll;
+}
+
+.top div {
+    display: inline-block;
 }
 
 .topleft {
@@ -157,10 +161,6 @@ table {
     width: 100%;
 }
 
-td button {
-    float: right;
-}
-
 td input {
     width: 100%;
 }
@@ -171,4 +171,16 @@ td input {
 
 .cornor {
     background-color: var(--ctp-mocha-mantle);
+}
+
+.bi {
+    font-size: larger;
+}
+
+#right_menu .bi {
+    font-size: x-large;
+}
+
+#top.hide_text span.text {
+    display: none;
 }

@@ -18,27 +18,37 @@
 
 <body>
     <section class="layout">
-        <div class="top no-select window">
-            <button class="menuitem">WebLNP Network Editor (git branch 'v2')</button>
+        <div class="top no-select window" id="top">
+            <div>
+                <button class="menuitem">WebLNP Network Editor</button>
+            </div>
             <span>|</span>
-            <button class="menuitem">File:</button>
-            <button class="menuitem can_hover">New</button>
-            <button class="menuitem can_hover">Open</button>
-            <button class="menuitem can_hover">Save</button>
+            <div>
+                <button class="menuitem">File:</button>
+                <button class="menuitem can_hover"><i class="bi bi-file-earmark-plus"></i> <span class="text">New</span></button>
+                <button class="menuitem can_hover"><i class="bi bi-file-earmark-arrow-up"></i> <span class="text">Open</span></button>
+                <button class="menuitem can_hover"><i class="bi bi-file-earmark-arrow-down"></i> <span class="text">Save</span></button>
+            </div>
             <span>|</span>
-            <button class="menuitem">Line modes:</button>
-            <button class="menuitem can_hover">Add node</button>
-            <button class="menuitem can_hover">Remove node</button>
+            <div>
+                <button class="menuitem">Modes:</button>
+                <button class="menuitem can_hover mode_btn" id="select"><i class="bi bi-cursor"></i> <span class="text">Select</span></button>
+                <button class="menuitem can_hover mode_btn" id="create"><i class="bi bi-asterisk"></i> <span class="text">Create node</span></button>
+                <button class="menuitem can_hover mode_btn" id="delete"><i class="bi bi-backspace"></i> <span class="text">Delete node</span></button>
+                <button class="menuitem can_hover mode_btn" id="add"><i class="bi bi-plus-circle"></i> <span class="text">Add node to line</span></button>
+                <button class="menuitem can_hover mode_btn" id="remove"><i class="bi bi-dash-circle"></i> <span class="text">Remove node from line</span></button>
+            </div>
             <span>|</span>
-            <button class="menuitem">Node modes:</button>
-            <button class="menuitem can_hover mode_btn" id="inactive">None</button>
-            <button class="menuitem can_hover mode_btn" id="create_hidden">Create hidden</button>
-            <button class="menuitem can_hover mode_btn" id="create_station">Create station</button>
-            <button class="menuitem can_hover mode_btn" id="delete">Delete</button>
-            <span>|</span>
-            <button class="menuitem">Help:</button>
-            <a target="_blank" rel="noopener noreferrer" href="https://github.com/samuel-302/weblnp/wiki/Network-Editor"><button class="menuitem can_hover">Wiki</button></a>
-            <a target="_blank" rel="noopener noreferrer" href="https://github.com/samuel-302/weblnp/issues"><button class="menuitem can_hover">GitHub Issues</button></a>
+            <div>
+                <button class="menuitem">Help:</button>
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/samuel-302/weblnp/wiki/Network-Editor"><button class="menuitem can_hover"><i class="bi bi-book"></i> <span class="text">Wiki</span></button></a>
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/samuel-302/weblnp/issues"><button class="menuitem can_hover"><i class="bi bi-exclamation-circle"></i> <span class="text">Report Issues</span></button></a>
+            </div>
+
+            <div style="float: right;" id="right_menu">
+                <button id="clear_terminal" class="menuitem can_hover"><i class="bi bi-terminal-dash"></i></button>
+                <button id="toggle_menu_text" class="menuitem can_hover"><i class="bi bi-list"></i></button>
+            </div>
         </div>
 
         <div class="left window">
@@ -48,13 +58,13 @@
             </div>
 
             <div id="tab_content_left_0" class="tab_content tab_content_left">
-                <table id="nodes">
+                <table>
                     <tr><th>ID</th><th>Lat/Lon</th><th>Stop name</th></tr>
-                    
+                    <tbody id="nodes"></tbody>
                 </table>
             </div>
             <div id="tab_content_left_1" class="tab_content tab_content_left hidden">
-                Lines
+                
             </div>
         </div>
         

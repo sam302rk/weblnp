@@ -19,24 +19,28 @@
 
     let info = console.info
     console.info = (txt) => {
-        document.getElementById('console').innerHTML += `<span class="green">INFO: ${txt}</span>`
+        document.getElementById('console').innerHTML += `\n<span class="green">INFO: ${txt}</span>`
         info(txt)
     }
 })()
 
 var map = L.map('map').setView([50.69, 9.77], 6.2)
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 16,
+var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
     minZoom: 6,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | Network Editor'
-}).addTo(map)
+})
+
+layer.addTo(map)
 
 document.querySelectorAll("div.tabs").forEach(node => {
     node.querySelectorAll("button").forEach((children, idx) => {
         children.addEventListener('click', () => TabClickEvent(node.id.replace('tabs_', ''), idx))
     })
 })
+
+let markers = []
 
 let NETWORK = EmptyNetwork()
 
@@ -54,8 +58,49 @@ function EmptyNetwork() {
     return empty
 }
 
+const clickModes = {
+    // Note: "mode": "marker" recieves an id, but "mode": "map" won't.
+    "select": {
+        "mode": "marker",
+        "action": args => {
+            console.log(`Node with ID ${args.id} "${NETWORK.nodes[args.id].name}" @ ${args.pos}`)
+        }
+    },
+    "create": {
+        "mode": "map",
+        "action": args => CreateNode(NETWORK.nodes.length, args.pos.lat, args.pos.lng, '')
+    },
+    "delete": {
+        "mode": "marker",
+        "action": args => {
+            NETWORK.nodes.splice(args.id, 1)
+            regenerateNodes()
+        }
+    },
+    "add": {
+        "mode": "marker",
+        "action": args => {
+            
+        }
+
+    },
+    "remove": {
+        "mode": "marker",
+        "action": args => {
+            
+        }
+    }
+}
+
+let selectedClickMode = "select"
+
+function fireModeEvent(required_mode, args) {
+    const mode = clickModes[selectedClickMode]
+    if (mode.mode == required_mode) mode.action(args)
+}
+
 keyValue = (key, type, id) => `<div class="key_value">${key} <input type="${type}" id="${id}" /></div>`
-nodeTableEntry = (id, lat, long) => `<tr><td>${id}</td><td>${lat}; ${long} <button id="node_${id}_focus">Focus</button></td><td><input id="node_${id}_name" type="text" placeholder="Currently hidden"/></td></tr>`
+nodeTableEntry = id => `<tr id="node_${id}"><td>${id}</td><td><button id="node_${id}_display">Display</button><button id="node_${id}_focus">Focus</button></td><td><input id="node_${id}_name" type="text" placeholder="Currently hidden"/></td></tr>`
 
 const node_size = 12
 
@@ -69,64 +114,72 @@ const station_node_icon = L.icon({
     iconSize: [node_size, node_size],
 })
 
-function CreateNode(id, lat, lng, name) {
-    document.getElementById('nodes').innerHTML += nodeTableEntry(id, lat, lng)
-    document.getElementById(`node_${id}_name`).value = name
-
-    // node_${id}_name
-    // node_${id}_focus
-
-    document.getElementById(`node_${id}_name`).addEventListener('click', () => NodeNameInputClick(`node_${id}_name`, id))
-    document.getElementById(`node_${id}_focus`).addEventListener('click', () => NodeFocusButtonClick(lat, lng))
+function CreateNodeMarker(id, lat, lng, name) {
+    const pos = [lat, lng]
 
     let options = {}
     options.icon = (name == "") ? hidden_node_icon : station_node_icon
 
-    let marker = L.marker([lat, lng], options)
-    marker.addTo(map)
-    NETWORK.nodes.push({
-        position: [lat, lng],
-        name: name,
-        _temp: {
-            marker: marker
-        }
+    let marker = L.marker(pos, options)
+    marker.on('click', () => fireModeEvent('marker', { id, pos }))
+    return marker
+}
+
+function CreateNodeTableEntry(id, lat, lng, name) {
+    document.getElementById('nodes').innerHTML += nodeTableEntry(id)
+    document.getElementById(`node_${id}_name`).value = name
+    document.getElementById(`node_${id}_name`).addEventListener('keypress', (e) => NodeNameInput(e, `node_${id}_name`, id))
+    document.getElementById(`node_${id}_focus`).addEventListener('click', () => map.setView([lat, lng], 16))
+    document.getElementById(`node_${id}_display`).addEventListener('click', () => console.info(`lat: ${lat}; lng: ${lng}`))
+}
+
+function regenerateNodes() {
+    markers.forEach(marker => {
+        marker.removeFrom(map)
+    })
+    
+    markers = []
+    document.getElementById('nodes').innerHTML = ""
+
+    NETWORK.nodes.forEach((node, idx) => {
+        CreateNodeTableEntry(idx, node.position[0], node.position[1], node.name)
+        
+        let nodeMarker = CreateNodeMarker(idx, node.position[0], node.position[1], node.name)
+        markers.push(nodeMarker)
+        nodeMarker.addTo(map)
     })
 }
 
-clickModes = {
-    "create_hidden": (pos) => {
-        CreateNode(NETWORK.nodes.length, pos.lat, pos.lng, prompt("Enter a name for this node.\n\n(Leave blank to hide it.)"))
-    },
-    "create_station": (pos) => {
-        CreateNode(NETWORK.nodes.length, pos.lat, pos.lng, prompt("Enter a station name.\n\n(Leave blank to hide it.)"))
-    },
-    "delete": (pos) => {
+function CreateNode(id, lat, lng, name) {
+    CreateNodeTableEntry(id, lat, lng, name)
 
-    },
-    "inactive": (pos) => {}
+    let marker = CreateNodeMarker(id, lat, lng, name)
+
+    markers.push(marker)
+    marker.addTo(map)
+
+    NETWORK.nodes.push({
+        position: [lat, lng],
+        name: name
+    })
 }
-
-let mode = "inactive"
 
 document.querySelectorAll('button.mode_btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        mode = btn.id
+        selectedClickMode = btn.id
     })
 })
 
 map.on('click', (e) => {
     const pos = e.latlng
-    clickModes[mode](pos)
+    fireModeEvent("map", { pos });
 })
 
-function NodeNameInputClick(input_id, id) {
-    const val = document.getElementById(input_id).value
-    NETWORK.nodes[id].name = val
-    NETWORK.nodes[id].marker.icon = (val == "") ? hidden_node_icon : station_node_icon
-}
-
-function NodeFocusButtonClick(lat, lng) {
-    map.setView([lat, lng], 16)
+function NodeNameInput(e, input_id, id) {
+    if (e.key != "Enter") return
+    console.log(document.getElementById(input_id).value)
+    NETWORK.nodes[id].name = document.getElementById(input_id).value
+    regenerateNodes()
 }
 
 function TabClickEvent(list_id, tab_id) {
@@ -143,3 +196,11 @@ function TabClickEvent(list_id, tab_id) {
         })
     }
 }
+
+document.getElementById('clear_terminal').addEventListener('click', () => {
+    document.getElementById('console').innerHTML = `<span class="green">INFO: Console cleared.</span>`
+})
+
+document.getElementById('toggle_menu_text').addEventListener('click', () => {
+    document.getElementById('top').classList.toggle('hide_text')
+})
