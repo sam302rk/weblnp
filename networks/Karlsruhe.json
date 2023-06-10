@@ -21,6 +21,7 @@
     "lines": {
         "S2": {
             "color": "rgb(255, 255, 255)",
+            "style": "",
             "layers": [
                 {
                     "frequency": 20,

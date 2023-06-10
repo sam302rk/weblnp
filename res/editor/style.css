@@ -81,7 +81,7 @@ div.tab_content {
     margin-bottom: 8px;
 }
 
-.key_value input {
+.key_value * {
     float: right;
     width: 50%;
 }
@@ -183,4 +183,29 @@ td input {
 
 #top.hide_text span.text {
     display: none;
+}
+
+button.btn {
+    width: 100%;
+    padding: .3em;
+}
+
+div.warning {
+    margin-left: auto;
+    margin-right: auto;
+    border-left-style: solid;
+    border-left-width: 4px;
+    padding: 8px;
+    border-left-color: var(--ctp-mocha-blue);
+    background-color: var(--ctp-mocha-lavender);
+    color: var(--ctp-mocha-crust);
+    max-width: 30em;
+}
+
+div.warning * {
+    display: inline-block;
+}
+
+hr {
+    color: var(--ctp-mocha-surface0);
 }

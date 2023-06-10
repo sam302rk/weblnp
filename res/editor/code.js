@@ -99,7 +99,8 @@ function fireModeEvent(required_mode, args) {
     if (mode.mode == required_mode) mode.action(args)
 }
 
-keyValue = (key, type, id) => `<div class="key_value">${key} <input type="${type}" id="${id}" /></div>`
+keyValue = (key, type, id, placeholder) => `<div class="key_value">${key} <input type="${type}" placeholder="${placeholder}" id="${id}" /></div>`
+keySelect = (key, options, id) => `<div class="key_value">${key} <select id="${id}">${options}</select></div>`
 nodeTableEntry = id => `<tr id="node_${id}"><td>${id}</td><td><button id="node_${id}_display">Display</button><button id="node_${id}_focus">Focus</button></td><td><input id="node_${id}_name" type="text" placeholder="Currently hidden"/></td></tr>`
 
 const node_size = 12
