@@ -138,14 +138,15 @@ const clickModes = {
     "add": {
         "mode": "marker",
         "action": args => {
-            
+            NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes.push(args.id)
+            redrawPaths()
         }
 
     },
     "remove": {
         "mode": "marker",
         "action": args => {
-            
+            // TODO: Move to Properties
         }
     }
 }

@@ -124,7 +124,7 @@ button.menuitem.can_hover:active * {
 
 .top {
     grid-area: top;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .top div {
@@ -153,7 +153,7 @@ button.menuitem.can_hover:active * {
 
 .bottom {
     grid-area: bottom;
-    overflow: scroll;
+    overflow: hidden;
     max-height: 16em;
 }
 
@@ -166,7 +166,7 @@ td input {
 }
 
 #console {
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .cornor {
