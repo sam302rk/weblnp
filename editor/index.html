@@ -54,7 +54,8 @@
         <div class="left window">
             <div class="tabs" id="tabs_left">
                 <button class="active">Nodes</button>
-                <button>Lines</button>
+                <button>Line Wizard</button>
+                <button>Hierarchy</button>
             </div>
 
             <div id="tab_content_left_0" class="tab_content tab_content_left">
@@ -63,6 +64,7 @@
                     <tbody id="nodes"></tbody>
                 </table>
             </div>
+
             <div id="tab_content_left_1" class="tab_content tab_content_left hidden">
                 <div id="create_line">
                     <h4>Create line</h4>
@@ -80,17 +82,24 @@
 
                 <hr>
 
-                <div>
-                    <h4 class="key_value">Select line
-                        <select id="select_lines">
-                            <option>None</option>
+                <div id="create_path">
+                    <h4>Create path</h4>
+                    <div class="key_value">Frequency <input id="frequency" type="number" placeholder="Frequency in Minutes"></div>
+                    <div class="key_value">Colour <input id="color" type="text" placeholder="CSS colour code"></div>
+                    <div class="key_value">Style
+                        <select id="style">
+                            <option>solid</option>
+                            <option>dashed</option>
+                            <option>dotted</option>
                         </select>
-                    </h4>
-                    <br>
-                    <div class="warning">
-                        <i class="bi bi-info-circle"></i> <p>Notice</p>
-                        <p>When creating new nodes, the nodes automatically get added to the current selected line. Set the selected line to 'None' to prevent this behaviour.</p>
                     </div>
+                    <h1><button class="btn">Create Path</button></h1>
+                </div>
+            </div>
+
+            <div id="tab_content_left_2" class="tab_content tab_content_left hidden">
+                <div id="lines">
+                
                 </div>
             </div>
         </div>
@@ -99,7 +108,7 @@
 
         <div class="right window">
             <div class="tabs" id="tabs_right">
-                <button class="active">Current selection</button>
+                <button class="active">Properties</button>
                 <button>Network properties</button>
             </div>
 
@@ -133,5 +142,4 @@
     <script src="/res/utils.js"></script>
     <script src="/res/editor/code.js"></script>
 </body>
-
 </html>

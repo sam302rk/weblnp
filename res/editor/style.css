@@ -209,3 +209,19 @@ div.warning * {
 hr {
     color: var(--ctp-mocha-surface0);
 }
+
+div.line_title {
+    cursor: pointer;
+}
+
+div.line_title:hover {
+    background-color: var(--ctp-mocha-surface0);
+}
+
+div.line_title:active {
+    background-color: var(--ctp-mocha-surface1);
+}
+
+div.line.collapsed div#line_1_nodes {
+    display: none;
+}

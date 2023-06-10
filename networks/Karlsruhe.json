@@ -22,10 +22,11 @@
         "S2": {
             "color": "rgb(255, 255, 255)",
             "style": "",
-            "layers": [
+            "paths": [
                 {
                     "frequency": 20,
                     "color": "",
+                    "style": "",
                     "nodes": [
                         1, 0, 2
                     ]
