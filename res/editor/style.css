@@ -1,0 +1,174 @@
+@import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    font-family: 'FiraCode Nerd Font Mono', 'Roboto Mono', monospace;
+}
+
+body {
+    background-color: var(--ctp-mocha-base);
+    color: var(--ctp-mocha-text);
+}
+
+p {
+    margin: 0px;
+}
+
+.layout {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    grid:
+        "top top top" 40px
+        "left map right" 1fr
+        "left bottom right" 16em
+        / auto 0.8fr auto;
+}
+
+div.tabs {
+    width: 100%;
+    display: flex;
+}
+
+div.tabs * {
+    display: inline-block;
+    flex-grow: 1;
+}
+
+div.tabs button {
+    border-style: none;
+    background-color: var(--ctp-mocha-mantle);
+    color: var(--ctp-mocha-subtext0);
+
+    border-right-style: solid;
+    border-right-width: 4px;
+    border-right-color: var(--ctp-mocha-mantle);
+}
+
+div.tabs button:hover {
+    background-color: var(--ctp-mocha-surface0);
+    color: var(--ctp-mocha-text);
+}
+
+div.tabs button:active {
+    background-color: var(--ctp-mocha-surface1);
+    color: var(--ctp-mocha-text);
+}
+
+div.tabs button.active {
+    background-color: var(--ctp-mocha-base);
+    color: var(--ctp-mocha-text);
+}
+
+div.tabs button:last-child {
+    border-right-style: none;
+
+}
+
+div.tab_content.hidden {
+    display: none;
+}
+
+div.tab_content {
+    margin: 8px;
+}
+
+.key_value {
+    margin-bottom: 8px;
+}
+
+.key_value input {
+    float: right;
+    width: 50%;
+}
+
+.window {
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--ctp-mocha-mantle);
+}
+
+.menuitem {
+    background-color: var(--ctp-mocha-base);
+    color: var(--ctp-mocha-subtext0);
+    border-style: none;
+    height: 32px;
+    display: inline-block;
+    margin: 4px;
+    margin-right: 0px;
+}
+
+span {
+    color: var(--ctp-mocha-subtext0);
+}
+
+.menuitem.can_hover {
+    color: var(--ctp-mocha-text);
+}
+
+button.menuitem.can_hover:hover {
+    color: var(--ctp-mocha-lavender);
+}
+
+button.menuitem.can_hover:active {
+    color: var(--ctp-mocha-blue);
+}
+
+.no-select {
+    user-select: unset;
+}
+
+.top {
+    grid-area: top;
+}
+
+.topleft {
+    grid-area: topleft;
+}
+
+.topright {
+    grid-area: topright;
+}
+
+.left {
+    grid-area: left;
+}
+
+.map {
+    grid-area: map;
+}
+
+.right {
+    grid-area: right;
+}
+
+.bottom {
+    grid-area: bottom;
+    overflow: scroll;
+    max-height: 16em;
+}
+
+table {
+    width: 100%;
+}
+
+td button {
+    float: right;
+}
+
+td input {
+    width: 100%;
+}
+
+#console {
+    overflow: scroll;
+}
+
+.cornor {
+    background-color: var(--ctp-mocha-mantle);
+}

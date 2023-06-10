@@ -1,0 +1,35 @@
+{
+    "meta": {
+        "city": "Karlsruhe",
+        "network": "Tram",
+        "country": "Germany",
+        "company": "Karlsruher Verkehrsverbund"
+    },
+    "nodes": [
+        {
+            "position": [0.0, 0.0]
+        },
+        {
+            "position": [0.0, 0.0],
+            "name": "Entenfang"
+        },
+        {
+            "position": [0.0, 0.0],
+            "name": "Albtalbahnhof"
+        }
+    ],
+    "lines": {
+        "S2": {
+            "color": "rgb(255, 255, 255)",
+            "layers": [
+                {
+                    "frequency": 20,
+                    "color": "",
+                    "nodes": [
+                        1, 0, 2
+                    ]
+                }
+            ]
+        }
+    }
+}
