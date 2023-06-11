@@ -70,7 +70,7 @@ function tabClickEvent(list_id, tab_id) {
 
 keyValue = (key, type, id, placeholder) => `<div class="key_value">${key} <input type="${type}" placeholder="${placeholder}" id="${id}" /></div>`
 keySelect = (key, options, id) => `<div class="key_value">${key} <select id="${id}">${options}</select></div>`
-nodeTableEntry = id => `<tr id="node_${id}"><td>${id}</td><td><button id="node_${id}_display">Display</button><button id="node_${id}_focus">Focus</button></td><td><input id="node_${id}_name" type="text" placeholder="Currently hidden"/></td></tr>`
+nodeTableEntry = id => `<td>${id}</td><td><button id="node_${id}_display">Display</button><button id="node_${id}_focus">Focus</button></td><td><input id="node_${id}_name" type="text" placeholder="Currently hidden"/></td>`
 
 line_path_tree = (line, paths) =>
 `<div id="line_${line}" class="line">
@@ -181,8 +181,19 @@ function createNodeMarker(id, lat, lng, name) {
     return marker
 }
 
+/**
+ * Generates a new table row for a node inside the nodes table
+ * @param {number} id Node index
+ * @param {decimal} lat Latitude
+ * @param {decimal} lng Longitude
+ * @param {string} name Station name
+ */
 function createNodeTableEntry(id, lat, lng, name) {
-    document.getElementById('nodes').innerHTML += nodeTableEntry(id)
+    let child = document.createElement('tr')
+    child.id = "node_" + id
+    child.innerHTML = nodeTableEntry(id)
+    document.getElementById('nodes').appendChild(child)
+
     document.getElementById(`node_${id}_name`).value = name
     document.getElementById(`node_${id}_name`).addEventListener('keypress', (e) => NodeNameInputEvent(e, `node_${id}_name`, id))
     document.getElementById(`node_${id}_focus`).addEventListener('click', () => map.setView([lat, lng], 16))
@@ -206,6 +217,13 @@ function redrawNodes() {
     })
 }
 
+/**
+ * 
+ * @param {number} id 
+ * @param {decimal} lat 
+ * @param {decimal} lng 
+ * @param {string} name 
+ */
 function createNode(id, lat, lng, name) {
     createNodeTableEntry(id, lat, lng, name)
 
@@ -369,7 +387,6 @@ document.querySelector('#create_path .btn').addEventListener('click', () => {
 
 function NodeNameInputEvent(e, input_id, id) {
     if (e.key != "Enter") return
-    console.log(document.getElementById(input_id).value)
     NETWORK.nodes[id].name = document.getElementById(input_id).value
     redrawNodes()
 }
