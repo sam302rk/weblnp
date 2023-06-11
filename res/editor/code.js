@@ -328,34 +328,36 @@ let pathPolylines = []
  * Clears Paths from screen and also overrides pathPolylines to an empty array.
  */
 function clearPathsFromScreen() {
-    for (var ppl in pathPolylines) ppl.removeFrom(map)
+    pathPolylines.forEach(ppl => map.removeLayer(ppl))
     pathPolylines = []
 }
 
 function drawPaths() {
     for (var line in NETWORK.lines) {
-        for (var path in line.paths) {
+        for (var path in NETWORK.lines[line].paths) {
+            var pathObj = NETWORK.lines[line].paths[path]
             let latlngs = []
-            const color = path.color || line.color
-            const style = path.style || line.style
+            const color = pathObj.color || line.color
+            const style = pathObj.style || line.style
 
-            for (var node in path.nodes) {
-                const latlng = NETWORK.nodes[node]
-                latlngs.push(latlng)
-            }
-
+            for (let node in pathObj.nodes) latlngs.push(NETWORK.nodes[node].position)
             // TODO IMPL: do something with "const style"
-            let polyline = L.polyline(latlngs, {color: color, weight: path.frequency/10, lineJoin: 'round'})
+            const options = {color: color, weight: pathObj.frequency/10, lineJoin: 'round'}
+            let polyline = L.polyline(latlngs, options)
             pathPolylines.push(polyline)
             polyline.addTo(map)
         }
     }
 }
 
-function redrawPaths() {
+/**
+ * Completly redraws the paths
+ * @param {boolean} shouldRedrawTreeList Should the tree list also get redrawn? Only required, if a new node has been added or a node got removed.
+ */
+function redrawPaths(shouldRedrawTreeList) {
     clearPathsFromScreen()
     drawPaths()
-    generatePathTree()
+    if (shouldRedrawTreeList) generatePathTree()
 }
 
 document.querySelector('#create_line .btn').addEventListener('click', () => {
@@ -366,7 +368,7 @@ document.querySelector('#create_line .btn').addEventListener('click', () => {
     createLine(name, color, style)
     createPath(name, 60, color, style)
 
-    redrawPaths()
+    redrawPaths(true)
 })
 
 document.querySelector('#create_path .btn').addEventListener('click', () => {
