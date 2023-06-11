@@ -23,12 +23,27 @@ p {
     width: 100vw;
     height: 100vh;
 
+    max-width: 100vw;
+    max-height: 100vh;
+
+    min-width: 100vw;
+    min-height: 100vh;
+
     display: grid;
     grid:
         "top top top" auto
         "left map right" 1fr
         "left bottom right" 16em
         / auto 0.8fr auto;
+}
+
+button.mode_btn.active span {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+button.mode_btn.active * {
+    color: var(--ctp-mocha-lavender) !important;
 }
 
 div.tabs {
@@ -66,7 +81,6 @@ div.tabs button.active {
 
 div.tabs button:last-child {
     border-right-style: none;
-
 }
 
 div.tab_content.hidden {

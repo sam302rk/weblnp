@@ -64,6 +64,10 @@ function tabClickEvent(list_id, tab_id) {
     }
 }
 
+function forceTabChange(list_id, tab_id) {
+    document.getElementById(`tabs_${list_id}`).querySelectorAll('button')[tab_id].click()
+}
+
 // -------------------------
 //  Constants and templates
 // -------------------------
@@ -137,10 +141,14 @@ const clickModes = {
     },
     "create": {
         "mode": "map",
-        "action": args => createNode(NETWORK.nodes.length, args.pos.lat, args.pos.lng, '')
+        "left_tab": 0,
+        "action": args => {
+            createNode(NETWORK.nodes.length, args.pos.lat, args.pos.lng, '')
+        }
     },
     "delete": {
         "mode": "marker",
+        "left_tab": 0,
         "action": args => {
             NETWORK.nodes.splice(args.id, 1)
             redrawNodes()
@@ -148,18 +156,10 @@ const clickModes = {
     },
     "add": {
         "mode": "marker",
+        "left_tab": 2,
         "action": args => {
-            //NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes.push(args.id)
-
             addNodeToCurrentPath(args.id)
             redrawPaths()
-        }
-
-    },
-    "remove": {
-        "mode": "marker",
-        "action": args => {
-            // TODO: Move to Properties
         }
     }
 }
@@ -173,6 +173,19 @@ function triggerClickMode(required_mode, args) {
 
 document.querySelectorAll('button.mode_btn').forEach(btn => {
     btn.addEventListener('click', () => {
+        const left_tab = clickModes[btn.id].left_tab;
+        const right_tab = clickModes[btn.id].right_tab;
+        if (left_tab != undefined) forceTabChange('left', left_tab)
+        if (right_tab != undefined) forceTabChange('right', right_tab)
+
+        document.querySelectorAll('button.mode_btn').forEach(btn_ => {
+            if (btn_.id != btn.id) {
+                btn_.classList.remove('active')
+            } else {
+                btn_.classList.add('active')
+            }
+        })
+
         selectedClickMode = btn.id
     })
 })
@@ -428,20 +441,28 @@ function saveToFile() {
 }
 
 function loadFromFile() {
-    openFileDialog(files => {
-        if (files.length == 1) {
-            NETWORK = JSON.parse(files[0])
-            networkToInput()
+    openFileDialog(file => {
+        try {
+            readFile(file, txt => {
+                NETWORK = JSON.parse(txt)
+
+                networkToInput()
+                redrawNodes()
+                redrawPaths(true)
+            })
+        } catch (e) {
+            console.log(file)
+            console.error(e)
         }
-        else alert("Cancelled.")
     })
-    
 }
 
 function openFileDialog(cb) {
     let input = document.createElement('input')
     input.type = 'file'
-    input.onchange = _ => cb(Array.from(input.files)[0])
+    input.onchange = _ => {
+        cb(Array.from(input.files)[0])
+    }
     input.click()
 }
 
@@ -450,6 +471,12 @@ async function downloadFile(file) {
     a.href = "data:text/json;base64," + btoa(file)
     a.download = "network.json"
     a.click()
+}
+
+function readFile(file, cb) {
+    let read = new FileReader()
+    read.readAsBinaryString(file)
+    read.onloadend = () => cb(read.result)
 }
 
 document.getElementById('save_file').addEventListener('click', () => saveToFile())
