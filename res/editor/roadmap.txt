@@ -6,6 +6,7 @@ Finish Nodes:
 - Hide Nodes Tab (keep for debugging but inactive)
 
 Unify Properties:
+- Add apply button
 - Make Handler for different objects' properties (like ClickMode)
 - Change Select click behaviour:
     Click on map -> Network properties

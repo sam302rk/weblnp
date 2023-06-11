@@ -52,16 +52,15 @@
 
         <div class="left window">
             <div class="tabs" id="tabs_left">
-                <button class="active">Nodes</button>
+                <button class="active">Hierarchy</button>
                 <button>Line Wizard</button>
-                <button>Hierarchy</button>
+                <button class="hidden">Nodes</button>
             </div>
 
             <div id="tab_content_left_0" class="tab_content tab_content_left">
-                <table>
-                    <tr><th>ID</th><th>Lat/Lon</th><th>Stop name</th></tr>
-                    <tbody id="nodes"></tbody>
-                </table>
+                <div id="hierarchy">
+                
+                </div>
             </div>
 
             <div id="tab_content_left_1" class="tab_content tab_content_left hidden">
@@ -97,9 +96,10 @@
             </div>
 
             <div id="tab_content_left_2" class="tab_content tab_content_left hidden">
-                <div id="lines">
-                
-                </div>
+                <table>
+                    <tr><th>ID</th><th>Lat/Lon</th><th>Stop name</th></tr>
+                    <tbody id="nodes"></tbody>
+                </table>
             </div>
         </div>
         
@@ -114,6 +114,11 @@
             <div id="tab_content_right_0" class="tab_content tab_content_right">
                 <div id="properties">
 
+                </div>
+
+                <div id="properties_controls">
+                    <button class="btn" id="apply">Apply</button>
+                    <button class="btn" id="cancel">Cancel</button>
                 </div>
             </div>
             <div id="tab_content_right_1" class="tab_content tab_content_right hidden">

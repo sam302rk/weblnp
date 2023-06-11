@@ -21,9 +21,22 @@ p {
 
 input {
     border: 2px solid var(--ctp-mocha-surface1);
-    background-color: var(--ctp-mocha-base);
+    background-color: var(--ctp-mocha-surface0);
     color: var(--ctp-mocha-text);
-    padding: 4px;
+}
+
+input:hover {
+    border-color: var(--ctp-mocha-surface2);
+}
+
+select {
+    border: 2px solid var(--ctp-mocha-surface1);
+    background-color: var(--ctp-mocha-surface0);
+    color: var(--ctp-mocha-text);
+}
+
+select:hover {
+    border-color: var(--ctp-mocha-surface2);
 }
 
 section.layout {
@@ -40,18 +53,8 @@ section.layout {
     grid:
         "top top top" auto
         "left map right" 1fr
-        "left bottom right" 16em
-        / auto 0.8fr auto;
-
-    transition: grid .2s;
-}
-
-section.layout.minimize-console {
-    grid:
-        "top top top" auto
-        "left map right" 1fr
         "left bottom right" 8em
-        / auto 0.8fr auto;
+        / 25% 50% 25%;
 
     transition: grid .2s;
 }
@@ -61,7 +64,7 @@ section.layout.no-console {
         "top top top" auto
         "left map right" 1fr
         "left map right" 16em
-        / auto 0.8fr auto;
+        / 25% 50% 25%;
 
     transition: grid .2s;
 }
@@ -73,6 +76,10 @@ section.layout.no-console .bottom {
 button.mode_btn.active span {
     text-decoration: underline;
     text-underline-offset: 4px;
+}
+
+.hidden {
+    display: none !important;
 }
 
 button.mode_btn.active * {
@@ -116,10 +123,6 @@ div.tabs button:last-child {
     border-right-style: none;
 }
 
-div.tab_content.hidden {
-    display: none;
-}
-
 div.tab_content {
     margin: 8px;
 }
@@ -135,12 +138,14 @@ div.tab_content {
 .key_value input {
     float: right;
     width: 50%;
-    margin-top: -25px;
+    box-sizing: content-box;
 }
 
 .key_value select {
     float: right;
     width: 50%;
+    padding: 1px 2px;
+    box-sizing: content-box;
 }
 
 .window {
@@ -150,7 +155,7 @@ div.tab_content {
 }
 
 .menuitem {
-    background-color: var(--ctp-mocha-base);
+    background-color: transparent;
     color: var(--ctp-mocha-subtext0);
     border-style: none;
     height: 32px;
@@ -223,7 +228,11 @@ td input {
 }
 
 #console {
-    overflow: hidden;
+    overflow: scroll;
+}
+
+.bottom.window {
+    overflow: scroll;
 }
 
 .cornor {
@@ -242,9 +251,31 @@ td input {
     display: none;
 }
 
+#properties_controls button.btn {
+    display: inline-block;
+    flex-grow: 1;
+    margin: 0px 4px;
+}
+
+#properties_controls {
+    width: 100%;
+    display: flex;
+}
+
 button.btn {
     width: 100%;
-    padding: .3em;
+    padding: .4em;
+    border: 2px solid var(--ctp-mocha-surface1);
+    background-color: var(--ctp-mocha-surface0);
+    color: var(--ctp-mocha-text);
+}
+
+button.btn:hover {
+    border-color: var(--ctp-mocha-surface2);
+}
+
+button.btn:active {
+    border-color: var(--ctp-mocha-surface3);
 }
 
 div.warning {
@@ -293,7 +324,7 @@ section.too-small {
             "top top" auto
             "left map" 1fr
             "left bottom" 8em
-            / auto 0.8fr;
+            / 25% 50%;
 
         transition: grid .2s;
     }
@@ -309,7 +340,7 @@ section.too-small {
             "top top top" auto
             "left map right" 1fr
             "left bottom right" 8em
-            / auto 0.8fr auto;
+            / 25% 50% 25%;
 
         transition: grid .2s;
     }
@@ -321,7 +352,7 @@ section.too-small {
             "top top top" auto
             "left map right" 1fr
             "left map right" 8em
-            / auto 0.8fr auto;
+            / 25% 50% 25%;
 
         transition: grid .2s;
     }
@@ -330,4 +361,17 @@ section.too-small {
     .bottom {
         display: none;
     }
+}
+
+.h_path {
+    margin-left: 12px;
+}
+
+.h_node {
+    margin-left: 24px;
+
+}
+
+.top.window {
+    background-color: var(--ctp-mocha-mantle);
 }

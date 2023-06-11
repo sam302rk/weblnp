@@ -292,20 +292,39 @@ function deselectPath() {
     selectedLinePath.any_selected = false
 }
 
-function generatePathTree() {
-    let lines = ""
-    for (let _line in NETWORK.lines) {
-        let paths = ""
-        for (let _path in NETWORK.lines[_line].paths) 
-            paths += path_tree_child(_line, _path)
-        lines += line_path_tree(_line, paths)
-    }
-    document.getElementById('lines').innerHTML = lines
+// ----------------
+//  Hierachy logic
+// ----------------
 
-    for (let _line in NETWORK.lines) {
-        for (let _path in NETWORK.lines[_line].paths) onClick(`${_line}_${_path}`, () => selectPath(_line, _path))
-        onClick(`line_${_line}_title`, () => document.querySelector(`#line_${_line}`).classList.toggle('collapsed'))
+function generateHierarchy(hide_nodes) {
+    const rowTemplate = inp => `<tr><td>${inp}</td></tr>`
+    const lineTemplate = (l, lo) => `<p class="h_line" style="color: ${lo.color};"><i class="bi bi-minecart"></i> Line "${l}"</p>`
+    const pathTemplate = (p, po) => `<p class="h_path" style="color: ${po.color};"><i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)</p>`
+    const nodeTemplate = (n, ni, no) => `<p class="h_node"><i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"</p>`.replace(' ""', '')
+    let content = ""
+
+    for (const line in NETWORK.lines) {
+        const lineObj = NETWORK.lines[line]
+        content += rowTemplate(lineTemplate(line, lineObj))
+        
+        for (const path in lineObj.paths) {
+            const pathObj = lineObj.paths[path]
+            content += rowTemplate(pathTemplate(path, pathObj))
+
+            for (const node in pathObj.nodes) {
+                const nodeIndex = pathObj.nodes[node]
+                const nodeObj = NETWORK.nodes[nodeIndex]
+
+                if (hide_nodes && nodeObj.name == "") console.log(`Skipped node '${nodeIndex}' at position ${node}`)
+                else content += rowTemplate(nodeTemplate(node, nodeIndex, nodeObj))
+            }
+        }
     }
+    return `<table><tbody>${content}</tbody></table>`
+}
+
+function regenerateHierarchy(hide_nodes) {
+    document.getElementById('hierarchy').innerHTML = generateHierarchy(hide_nodes)
 }
 
 // ---------------------
@@ -375,10 +394,9 @@ function drawPaths() {
  * Completly redraws the paths
  * @param {boolean} shouldRedrawTreeList Should the tree list also get redrawn? Only required, if a new node has been added or a node got removed.
  */
-function redrawPaths(shouldRedrawTreeList) {
+function redrawPaths() {
     clearPathsFromScreen()
     drawPaths()
-    if (shouldRedrawTreeList) generatePathTree()
 }
 
 document.querySelector('#create_line .btn').addEventListener('click', () => {
