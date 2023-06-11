@@ -110,33 +110,45 @@ networkToInput()
 //  Click modes logic
 // -------------------
 
+// 0x001 - map click
+// mode, { latlng }
+
+// 0x010 - node click
+// mode, { latlng, id }
+
+// 0x100 - polyline click
+// mode, { line, path }
 const clickModes = {
-    // Note: "mode": "marker" recieves an id, but "mode": "map" won't.
     "select": {
-        "mode": "select",
-        "action": args => {
-            console.log(`Node with ID ${args.id} "${NETWORK.nodes[args.id].name}" @ ${args.pos}`.replace(' ""', ''))
+        "mode": 0x110,
+        "action": (mode, args) => {
+            if (mode == 0x010) {
+                console.log(`Node with ID ${args.id} "${NETWORK.nodes[args.id].name}" @ ${args.pos}`.replace(' ""', ''))
+                // TODO: node properties
+            } else {
+                // TODO: line/path properties
+            }
         }
     },
     "create": {
-        "mode": "map",
+        "mode": 0x001,
         "left_tab": 0,
-        "action": args => {
+        "action": (mode, args) => {
             createNode(NETWORK.nodes.length, args.pos.lat, args.pos.lng, '')
         }
     },
     "delete": {
-        "mode": "marker",
+        "mode": 0x010,
         "left_tab": 0,
-        "action": args => {
+        "action": (mode, args) => {
             NETWORK.nodes.splice(args.id, 1)
             redrawNodes()
         }
     },
     "add": {
-        "mode": "marker",
+        "mode": 0x010,
         "left_tab": 2,
-        "action": args => {
+        "action": (mode, args) => {
             addNodeToCurrentPath(args.id)
             redrawPaths()
         }
@@ -145,9 +157,9 @@ const clickModes = {
 
 let selectedClickMode = "select"
 
-function triggerClickMode(required_mode, args) {
-    const mode = clickModes[selectedClickMode]
-    if (mode.mode == required_mode) mode.action(args)
+function triggerClickMode(event_mode, args) {
+    let mode = clickModes[selectedClickMode]
+    if (bitwise_check(mode.mode, event_mode)) mode.action(event_mode, args)
 }
 
 document.querySelectorAll('button.mode_btn').forEach(btn => {
@@ -182,7 +194,7 @@ function createNodeMarker(id, lat, lng, name) {
     options.icon = (name == "") ? hidden_node_icon : station_node_icon
 
     let marker = L.marker(pos, options)
-    marker.on('click', () => triggerClickMode(1, { id, pos }))
+    marker.on('click', () => triggerClickMode(0x010, { id, pos }))
     return marker
 }
 
@@ -245,7 +257,7 @@ function createNode(id, lat, lng, name) {
 
 map.on('click', (e) => {
     const pos = e.latlng
-    triggerClickMode(0x1, { pos })
+    triggerClickMode(0x001, { pos })
 })
 
 // ------------
@@ -352,6 +364,7 @@ function drawPaths() {
             // TODO IMPL: do something with "const style"
             const options = {color: color, weight: pathObj.frequency/10, lineJoin: 'round'}
             let polyline = L.polyline(latlngs, options)
+            polyline.on('click', () => triggerClickMode(0x100, { line, path }))
             pathPolylines.push(polyline)
             polyline.addTo(map)
         }

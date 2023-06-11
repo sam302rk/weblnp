@@ -85,3 +85,7 @@ function div_with_id(type, id, content) {
     div.innerHTML = content
     return div
 }
+
+function bitwise_check(input, bit) {
+    return (input & bit) == bit;
+}

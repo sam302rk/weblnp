@@ -1,0 +1,22 @@
+Finish Hierarchy:
+- Make nodes visible under paths @ Hierarchy
+- Remove radio button & arrow, instead use margins
+
+Finish Nodes:
+- Hide Nodes Tab (keep for debugging but inactive)
+
+Unify Properties:
+- Make Handler for different objects' properties (like ClickMode)
+- Change Select click behaviour:
+    Click on map -> Network properties
+    Click on node -> Node properties
+    Click on path -> Line/Path properties
+- Implement functions for node list manipulation inside a path
+    Move up/down in list
+    Remove
+
+Finish UX/UI:
+- CSS for <button> & <select>
+
+Path rendering:
+- Render paths paralell
