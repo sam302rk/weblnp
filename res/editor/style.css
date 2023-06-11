@@ -19,6 +19,13 @@ p {
     margin: 0px;
 }
 
+input {
+    border: 2px solid var(--ctp-mocha-surface1);
+    background-color: var(--ctp-mocha-base);
+    color: var(--ctp-mocha-text);
+    padding: 4px;
+}
+
 section.layout {
     width: 100vw;
     height: 100vh;
@@ -118,10 +125,20 @@ div.tab_content {
 }
 
 .key_value {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
-.key_value * {
+.key_value p {
+    width: min-content;
+}
+
+.key_value input {
+    float: right;
+    width: 50%;
+    margin-top: -25px;
+}
+
+.key_value select {
     float: right;
     width: 50%;
 }

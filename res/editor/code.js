@@ -113,7 +113,7 @@ networkToInput()
 const clickModes = {
     // Note: "mode": "marker" recieves an id, but "mode": "map" won't.
     "select": {
-        "mode": "marker",
+        "mode": "select",
         "action": args => {
             console.log(`Node with ID ${args.id} "${NETWORK.nodes[args.id].name}" @ ${args.pos}`.replace(' ""', ''))
         }
@@ -182,7 +182,7 @@ function createNodeMarker(id, lat, lng, name) {
     options.icon = (name == "") ? hidden_node_icon : station_node_icon
 
     let marker = L.marker(pos, options)
-    marker.on('click', () => triggerClickMode('marker', { id, pos }))
+    marker.on('click', () => triggerClickMode(1, { id, pos }))
     return marker
 }
 
@@ -245,7 +245,7 @@ function createNode(id, lat, lng, name) {
 
 map.on('click', (e) => {
     const pos = e.latlng
-    triggerClickMode("map", { pos })
+    triggerClickMode(0x1, { pos })
 })
 
 // ------------
