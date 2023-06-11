@@ -2,7 +2,7 @@
 //  Console logic
 // ---------------
 
-(function(){
+(() => {
     let log = console.log
     console.log = (txt) => {
         document.getElementById('console').innerHTML += `\n<span class="lavender">LOG: ${txt}</span>`
@@ -67,35 +67,6 @@ function tabClickEvent(list_id, tab_id) {
 function forceTabChange(list_id, tab_id) {
     document.getElementById(`tabs_${list_id}`).querySelectorAll('button')[tab_id].click()
 }
-
-// -------------------------
-//  Constants and templates
-// -------------------------
-
-keyValue = (key, type, id, placeholder) => `<div class="key_value">${key} <input type="${type}" placeholder="${placeholder}" id="${id}" /></div>`
-keySelect = (key, options, id) => `<div class="key_value">${key} <select id="${id}">${options}</select></div>`
-nodeTableEntry = id => `<td>${id}</td><td><button id="node_${id}_display">Display</button><button id="node_${id}_focus">Focus</button></td><td><input id="node_${id}_name" type="text" placeholder="Currently hidden"/></td>`
-
-line_path_tree = (line, paths) =>
-`<div id="line_${line}" class="line">
-<div id="line_${line}_title" class="line_title"><i class="bi bi-caret-down-fill"></i><b>Line "${line}"</b></div>
-<div id="line_${line}_nodes">
-${paths}
-</div></div>`
-path_tree_child = (line, path) => `<div><input type="radio" name="current_path" id="${line}_${path}" /> <i class="bi bi-arrow-return-right"></i> Path #${path}</div>`
-
-const node_size = 12
-const metaKeys = [ 'city', 'network', 'country', 'company', 'year' ]
-
-const hidden_node_icon = L.icon({
-    iconUrl: "/res/editor/node_hidden.svg",
-    iconSize: [node_size, node_size],
-})
-
-const station_node_icon = L.icon({
-    iconUrl: "/res/editor/node_station.svg",
-    iconSize: [node_size, node_size],
-})
 
 // -----------------
 //  Network storage
@@ -222,8 +193,8 @@ function createNodeTableEntry(id, lat, lng, name) {
 
     document.getElementById(`node_${id}_name`).value = name
     document.getElementById(`node_${id}_name`).addEventListener('keypress', (e) => NodeNameInputEvent(e, `node_${id}_name`, id))
-    document.getElementById(`node_${id}_focus`).addEventListener('click', () => map.setView([lat, lng], 16))
-    document.getElementById(`node_${id}_display`).addEventListener('click', () => console.info(`lat: ${lat}; lng: ${lng}`))
+    onClick(`node_${id}_focus`, () => map.setView([lat, lng], 16))
+    onClick(`node_${id}_display`, () => console.info(`lat: ${lat}; lng: ${lng}`))
 }
 
 function redrawNodes() {
@@ -312,8 +283,8 @@ function generatePathTree() {
     document.getElementById('lines').innerHTML = lines
 
     for (let _line in NETWORK.lines) {
-        for (let _path in NETWORK.lines[_line].paths) document.getElementById(`${_line}_${_path}`).addEventListener('click', () => selectPath(_line, _path))
-        document.getElementById(`line_${_line}_title`).addEventListener('click', () => document.querySelector(`#line_${_line}`).classList.toggle('collapsed'))
+        for (let _path in NETWORK.lines[_line].paths) onClick(`${_line}_${_path}`, () => selectPath(_line, _path))
+        onClick(`line_${_line}_title`, () => document.querySelector(`#line_${_line}`).classList.toggle('collapsed'))
     }
 }
 
@@ -422,11 +393,11 @@ function NodeNameInputEvent(e, input_id, id) {
     redrawNodes()
 }
 
-document.getElementById('clear_terminal').addEventListener('click', () => {
+onClick('clear_terminal', () => {
     document.getElementById('console').innerHTML = `<span class="green">INFO: Console cleared.</span>`
 })
 
-document.getElementById('toggle_menu_text').addEventListener('click', () => {
+onClick('toggle_menu_text', () => {
     document.getElementById('top').classList.toggle('hide_text')
 })
 
@@ -479,12 +450,55 @@ function readFile(file, cb) {
     read.onloadend = () => cb(read.result)
 }
 
-document.getElementById('save_file').addEventListener('click', () => saveToFile())
-document.getElementById('open_file').addEventListener('click', () => loadFromFile())
-document.getElementById('new_file').addEventListener('click', () => {
+onClick('save_file', () => saveToFile())
+onClick('open_file', () => loadFromFile())
+onClick('new_file', () => {
     if (!confirm("Are you sure you want to reset the network?")) return
     NETWORK = emptyNetwork()
     inputToNetwork()
     redrawNodes()
     redrawPaths()
 })
+
+// ------------
+//  Properties
+// ------------
+
+properties = document.getElementById('properties')
+
+/**
+ * Generates the Properties window
+ * @ignore Gets called by regenerateProperties(), which you should call instead.
+ */
+function generateProperties() {
+    properties.appendChild(title(`Line "${selectedLinePath.line}"`))
+    const line = NETWORK.lines[selectedLinePath.line]
+    let lineProperties = ""
+    lineProperties += keyValue("Colour", "text", "line_color", "CSS colour code")
+    lineProperties += keySelect("Style", `<option>solid</option><option>dashed</option><option>dotted</option>`, 'line_style')
+    properties.appendChild(div_with_id('div', 'line_properties', lineProperties))
+
+    properties.getElementById('color').value = line.color
+    properties.getElementById('style').value = line.style
+
+    properties.appendChild(title(`Path #${selectedLinePath.path}`))
+    const path = line.paths[selectedLinePath.path]
+    let pathProperties = ""
+    pathProperties += keyValue("Frequency", "number", "path_frequency", "Frequency in Minutes")
+    pathProperties += keyValue("Colour", "text", "path_color", "CSS colour code")
+    pathProperties += keySelect("Style", `<option>solid</option><option>dashed</option><option>dotted</option>`, 'path_style')
+    properties.appendChild(div_with_id('div', 'path_properties', pathProperties))
+
+    properties.getElementById('frequency').value = path.frequency
+    properties.getElementById('color').value = path.color
+    properties.getElementById('style').value = path.style
+}
+
+/**
+ * Call everytime a selecttedLinePath changes.
+ * @borrows from generateProperties()
+ */
+function regenerateProperties() {
+    properties.innerHTML = ""
+    generateProperties()
+}
