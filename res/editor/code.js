@@ -28,6 +28,14 @@
     }
 })()
 
+function toggleMinimizedConsole() {
+    document.querySelector('section.layout').classList.toggle('minimize-console')
+}
+
+function toggleHiddenConsole() {
+    document.querySelector('section.layout').classList.toggle('no-console')
+}
+
 // ---------------
 //  Leaflet setup
 // ---------------

@@ -19,7 +19,7 @@ p {
     margin: 0px;
 }
 
-.layout {
+section.layout {
     width: 100vw;
     height: 100vh;
 
@@ -35,7 +35,33 @@ p {
         "left map right" 1fr
         "left bottom right" 16em
         / auto 0.8fr auto;
+
+    transition: grid .2s;
 }
+
+section.layout.minimize-console {
+    grid:
+        "top top top" auto
+        "left map right" 1fr
+        "left bottom right" 8em
+        / auto 0.8fr auto;
+
+    transition: grid .2s;
+}
+
+section.layout.no-console {
+    grid:
+        "top top top" auto
+        "left map right" 1fr
+        "left map right" 16em
+        / auto 0.8fr auto;
+
+    transition: grid .2s;
+}
+
+section.layout.no-console .bottom {
+    display: none;
+} 
 
 button.mode_btn.active span {
     text-decoration: underline;
@@ -238,4 +264,53 @@ div.line_title:active {
 
 div.line.collapsed div#line_1_nodes {
     display: none;
+}
+
+section.too-small {
+    display: none;
+}
+
+@media only screen and (max-width: 1125px) {
+    section.layout {
+        grid:
+            "top top" auto
+            "left map" 1fr
+            "left bottom" 8em
+            / auto 0.8fr;
+
+        transition: grid .2s;
+    }
+
+    .right {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 620px) {
+    section.layout {
+        grid:
+            "top top top" auto
+            "left map right" 1fr
+            "left bottom right" 8em
+            / auto 0.8fr auto;
+
+        transition: grid .2s;
+    }
+}
+
+@media only screen and (max-height: 410px) {
+    section.layout {
+        grid:
+            "top top top" auto
+            "left map right" 1fr
+            "left map right" 8em
+            / auto 0.8fr auto;
+
+        transition: grid .2s;
+    }
+
+
+    .bottom {
+        display: none;
+    }
 }
