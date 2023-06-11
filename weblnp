@@ -7,7 +7,7 @@ case $1 in
     reload)
         echo "Reloading dev enviroment..."
         unset -f weblnp
-        source weblnp
+        source ./weblnp_env
     ;;
     
     serve)
@@ -40,7 +40,7 @@ case $1 in
         echo "weblnp reload     Reloads the dev enviroment."
         echo "weblnp exit       Exits out of the dev enviroment and disables the weblnp command"
     ;;
-    
+
     *)
         echo -n "Command unknown. Run 'weblnp help' for a list with commands."
     ;;
