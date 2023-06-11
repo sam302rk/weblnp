@@ -138,7 +138,9 @@ const clickModes = {
     "add": {
         "mode": "marker",
         "action": args => {
-            NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes.push(args.id)
+            //NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes.push(args.id)
+
+            addNodeToCurrentPath(args.id)
             redrawPaths()
         }
 
@@ -299,7 +301,7 @@ function generatePathTree() {
  * @param {number} nodeId ID of node, which shall be appended.
  */
 function addNodeToCurrentPath(nodeId) {
-    NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].push(nodeId)
+    NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes.push(nodeId)
 }
 
 /**
@@ -340,7 +342,10 @@ function drawPaths() {
             const color = pathObj.color || line.color
             const style = pathObj.style || line.style
 
-            for (let node in pathObj.nodes) latlngs.push(NETWORK.nodes[node].position)
+            for (let node in pathObj.nodes) {
+                const id = pathObj.nodes[node]
+                latlngs.push(NETWORK.nodes[id].position)
+            }
             // TODO IMPL: do something with "const style"
             const options = {color: color, weight: pathObj.frequency/10, lineJoin: 'round'}
             let polyline = L.polyline(latlngs, options)
