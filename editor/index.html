@@ -25,9 +25,9 @@
             <span>|</span>
             <div>
                 <button class="menuitem">File:</button>
-                <button class="menuitem can_hover"><i class="bi bi-file-earmark-plus"></i> <span class="text">New</span></button>
-                <button class="menuitem can_hover"><i class="bi bi-file-earmark-arrow-up"></i> <span class="text">Open</span></button>
-                <button class="menuitem can_hover"><i class="bi bi-file-earmark-arrow-down"></i> <span class="text">Save</span></button>
+                <button class="menuitem can_hover" id="new_file"><i class="bi bi-file-earmark-plus"></i> <span class="text">New</span></button>
+                <button class="menuitem can_hover" id="open_file"><i class="bi bi-file-earmark-arrow-up"></i> <span class="text">Open</span></button>
+                <button class="menuitem can_hover" id="save_file"><i class="bi bi-file-earmark-arrow-down"></i> <span class="text">Save</span></button>
             </div>
             <span>|</span>
             <div>
@@ -35,8 +35,8 @@
                 <button class="menuitem can_hover mode_btn" id="select"><i class="bi bi-cursor"></i> <span class="text">Select</span></button>
                 <button class="menuitem can_hover mode_btn" id="create"><i class="bi bi-asterisk"></i> <span class="text">Create node</span></button>
                 <button class="menuitem can_hover mode_btn" id="delete"><i class="bi bi-backspace"></i> <span class="text">Delete node</span></button>
-                <button class="menuitem can_hover mode_btn" id="add"><i class="bi bi-plus-circle"></i> <span class="text">Add node to line</span></button>
-                <button class="menuitem can_hover mode_btn" id="remove"><i class="bi bi-dash-circle"></i> <span class="text">Remove node from line</span></button>
+                <button class="menuitem can_hover mode_btn" id="add"><i class="bi bi-plus-circle"></i> <span class="text">Add node to path</span></button>
+                <button class="menuitem can_hover mode_btn" id="remove"><i class="bi bi-dash-circle"></i> <span class="text">Remove node from path</span></button>
             </div>
             <span>|</span>
             <div>
@@ -117,10 +117,11 @@
             </div>
             <div id="tab_content_right_1" class="tab_content tab_content_right hidden">
                 <h4>Metadata</h4>
-                <div class="key_value">City <input type="text" id="meta_city"></div>
-                <div class="key_value">Network <input type="text" id="meta_network"></div>
-                <div class="key_value">Country <input type="text" id="meta_country"></div>
-                <div class="key_value">Company <input type="text" id="meta_company"></div>
+                <div class="key_value">City <input type="text" id="meta_city" placeholder="ex. Karlsruhe, ..."></div>
+                <div class="key_value">Network <input type="text" id="meta_network" placeholder="ex. Tram, Bus, ..."></div>
+                <div class="key_value">Country <input type="text" id="meta_country" placeholder="ex. Germany, ..."></div>
+                <div class="key_value">Company <input type="text" id="meta_company" placeholder="ex. VBK, AVG, ..."></div>
+                <div class="key_value">Year <input type="number" id="meta_year" placeholder="ex. 1981, 2006, ..."></div>
             </div>
         </div>
 

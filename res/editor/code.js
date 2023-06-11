@@ -81,6 +81,7 @@ ${paths}
 path_tree_child = (line, path) => `<div><input type="radio" name="current_path" id="${line}_${path}" /> <i class="bi bi-arrow-return-right"></i> Path #${path}</div>`
 
 const node_size = 12
+const metaKeys = [ 'city', 'network', 'country', 'company', 'year' ]
 
 const hidden_node_icon = L.icon({
     iconUrl: "/res/editor/node_hidden.svg",
@@ -96,21 +97,31 @@ const station_node_icon = L.icon({
 //  Network storage
 // -----------------
 
-let NETWORK = emptyNetwork()
-
 function emptyNetwork() {
-    const empty = {
+    return {
         "meta": {
             "city": "",
             "network": "",
             "country": "",
-            "company": ""
+            "company": "",
+            "year": 1970
         },
         "nodes": [],
         "lines": {}
     }
-    return empty
 }
+
+let NETWORK = emptyNetwork()
+
+function networkToInput() {
+    metaKeys.forEach(key => document.getElementById(`meta_` + key).value = NETWORK.meta[key])
+}
+
+function inputToNetwork() {
+    metaKeys.forEach(key => NETWORK.meta[key] = document.getElementById(`meta_${key}`).value)
+} 
+
+networkToInput()
 
 // -------------------
 //  Click modes logic
@@ -121,7 +132,7 @@ const clickModes = {
     "select": {
         "mode": "marker",
         "action": args => {
-            console.log(`Node with ID ${args.id} "${NETWORK.nodes[args.id].name}" @ ${args.pos}`)
+            console.log(`Node with ID ${args.id} "${NETWORK.nodes[args.id].name}" @ ${args.pos}`.replace(' ""', ''))
         }
     },
     "create": {
@@ -404,4 +415,49 @@ document.getElementById('clear_terminal').addEventListener('click', () => {
 
 document.getElementById('toggle_menu_text').addEventListener('click', () => {
     document.getElementById('top').classList.toggle('hide_text')
+})
+
+// ------------
+//  File logic
+// ------------
+
+function saveToFile() {
+    inputToNetwork()
+    const networkString = JSON.stringify(NETWORK)
+    downloadFile(networkString)
+}
+
+function loadFromFile() {
+    openFileDialog(files => {
+        if (files.length == 1) {
+            NETWORK = JSON.parse(files[0])
+            networkToInput()
+        }
+        else alert("Cancelled.")
+    })
+    
+}
+
+function openFileDialog(cb) {
+    let input = document.createElement('input')
+    input.type = 'file'
+    input.onchange = _ => cb(Array.from(input.files)[0])
+    input.click()
+}
+
+async function downloadFile(file) {
+    var a = document.createElement("a")
+    a.href = "data:text/json;base64," + btoa(file)
+    a.download = "network.json"
+    a.click()
+}
+
+document.getElementById('save_file').addEventListener('click', () => saveToFile())
+document.getElementById('open_file').addEventListener('click', () => loadFromFile())
+document.getElementById('new_file').addEventListener('click', () => {
+    if (!confirm("Are you sure you want to reset the network?")) return
+    NETWORK = emptyNetwork()
+    inputToNetwork()
+    redrawNodes()
+    redrawPaths()
 })
