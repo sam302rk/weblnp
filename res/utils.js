@@ -42,7 +42,7 @@ function sort(div) {
  * @param {string} placeholder 
  * @returns A key-value element with the parameters filled in.
  */
-function keyValue (key, type, id, placeholder) {
+function keyValue(key, type, id, placeholder) {
     return `<div class="key_value"><p>${key}</p> <input type="${type}" placeholder="${placeholder}" id="${id}" /></div>`
 }
 keySelect = (key, options, id) => `<div class="key_value"><p>${key}</p><select id="${id}">${options}</select></div>`

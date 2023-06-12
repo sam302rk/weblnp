@@ -264,10 +264,15 @@ map.on('click', (e) => {
 //  Line logic
 // ------------
 
-let selectedLinePath = {
+/*let selectedLinePath = {
     any_selected: false,
     line: "",
     path: 0
+}*/
+
+let currentSelection = {
+    type: 'map', // Map, Node, Path
+    data: {} 
 }
 
 function createLine(name, color, style) {
@@ -283,13 +288,10 @@ function createPath(line, frequency, color, style) {
 // ------------
 
 function selectPath(line, path) {
-    selectedLinePath = {
-        any_selected: true, line, path
+    currentSelection = {
+        type: 'path',
+        data: { line, path }
     }
-}
-
-function deselectPath() {
-    selectedLinePath.any_selected = false
 }
 
 // ----------------
@@ -335,23 +337,11 @@ function regenerateHierarchy(hide_nodes) {
  * @param {number} nodeId ID of node, which shall be appended.
  */
 function addNodeToCurrentPath(nodeId) {
-    NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes.push(nodeId)
-}
-
-/**
- * @param {number} nodeId ID of node, which shall be removed.
- * @returns New version of nodes array
- */
-function removeNodeFromCurrentPath(nodeId) {
-    setCurrentPathsNodes(NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes.filter(obj => obj !== nodeId));
-}
-
-/**
- * Overrides the current path's node list.
- * @param {number[]} new_nodes The new node list.
- */
-function setCurrentPathsNodes(new_nodes) {
-    NETWORK.lines[selectedLinePath.line].paths[selectedLinePath.path].nodes = new_nodes
+    if (currentSelection.type == 'path') {
+        NETWORK.lines[currentSelection.data.line].paths[currentSelection.data.path].nodes.push(nodeId)
+    } else {
+        console.error('You need to select a path.')
+    }
 }
 
 // -----------------
@@ -411,13 +401,12 @@ document.querySelector('#create_line .btn').addEventListener('click', () => {
 })
 
 document.querySelector('#create_path .btn').addEventListener('click', () => {
-    if (!selectedLinePath.any_selected) return
-
+    const parentLine = document.querySelector('#create_path #parent_line_id').value
     const frequency = Number.parseInt(document.querySelector('#create_path #frequency').value)
     const color = document.querySelector('#create_path #color').value
     const style = document.querySelector('#create_path #style').value
 
-    createPath(selectedLinePath.line, frequency, color, style)
+    createPath(parentLine, frequency, color, style)
 
     redrawPaths()
 })
@@ -505,32 +494,49 @@ onClick('new_file', () => {
 
 properties = document.getElementById('properties')
 
+let propertiesHandler = {
+    "map": {
+        "generate": (div) => {
+            let innerHtml = `<h4>Network</h4>`
+            innerHtml += keyValue('City', 'text', 'meta_city', 'ex. Karlsruhe, ...')
+            innerHtml += keyValue('Network', 'text', 'meta_network', 'ex. Tram, Bus, ...')
+            innerHtml += keyValue('Country', 'text', 'meta_country', 'ex. Germany, ...')
+            innerHtml += keyValue('Company', 'text', 'meta_company', 'ex. VBK, AVG, ...')
+            innerHtml += keyValue('Year', 'number', 'meta_year', 'ex. 1981, 2006, ...')
+            div.innerHTML = innerHtml
+            return div
+        },
+        "save": () => {
+
+        }
+    },
+    "node": {
+        "generate": (div) => {
+            let innerHtml = `<h4>Node ${currentSelection.data.id}</h4>`
+            return div
+        },
+        "save": () => {
+            
+        }
+    },
+    "path": {
+        "generate": (div) => {
+            let innerHtml = `<h4>Path ${currentSelection.data.path}</h4><p>(Line ${currentSelection.data.line})</p>`
+            return div
+        },
+        "save": () => {
+            
+        }
+    }
+}
+
 /**
  * Generates the Properties window
  * @ignore Gets called by regenerateProperties(), which you should call instead.
  */
 function generateProperties() {
-    properties.appendChild(title(`Line "${selectedLinePath.line}"`))
-    const line = NETWORK.lines[selectedLinePath.line]
-    let lineProperties = ""
-    lineProperties += keyValue("Colour", "text", "line_color", "CSS colour code")
-    lineProperties += keySelect("Style", `<option>solid</option><option>dashed</option><option>dotted</option>`, 'line_style')
-    properties.appendChild(div_with_id('div', 'line_properties', lineProperties))
-
-    properties.getElementById('color').value = line.color
-    properties.getElementById('style').value = line.style
-
-    properties.appendChild(title(`Path #${selectedLinePath.path}`))
-    const path = line.paths[selectedLinePath.path]
-    let pathProperties = ""
-    pathProperties += keyValue("Frequency", "number", "path_frequency", "Frequency in Minutes")
-    pathProperties += keyValue("Colour", "text", "path_color", "CSS colour code")
-    pathProperties += keySelect("Style", `<option>solid</option><option>dashed</option><option>dotted</option>`, 'path_style')
-    properties.appendChild(div_with_id('div', 'path_properties', pathProperties))
-
-    properties.getElementById('frequency').value = path.frequency
-    properties.getElementById('color').value = path.color
-    properties.getElementById('style').value = path.style
+    properties.appendChild(
+        propertiesHandler[currentSelection.type].generate(document.createElement('div')))
 }
 
 /**
