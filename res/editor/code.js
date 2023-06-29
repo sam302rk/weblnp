@@ -302,7 +302,7 @@ function generateHierarchy(hide_nodes) {
     let table = document.createElement('table')
     let tableBody = document.createElement('tbody')
 
-    const rowTemplate = inp => {
+    const row = inp => {
         let tr = document.createElement('tr')
         let td = document.createElement('td')
         td.appendChild(inp)
@@ -325,49 +325,49 @@ function generateHierarchy(hide_nodes) {
     //const pathTemplate = (p, po) => `<p class="h path" style="color: ${po.color};"><i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)  ${contextMenu}</p>`
     //const nodeTemplate = (n, ni, no) => `<p class="h node"><i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"  ${contextMenu}</p>`.replace(' ""', '')
     
-    const lineTemplate = (l, lo) => {
+    const _line = (l, lo) => {
         let p = document.createElement('p')
         p.classList.add('h')
         p.classList.add('line')
         p.style.color = lo.color
         p.innerHTML = `<i class="bi bi-minecart"></i> Line "${l}"`
         p.appendChild(contextMenu(() => {}, () => {}))
-        return p
+        return row(p)
     }
     
-    const pathTemplate = (p, po) => {
+    const _path = (p, po) => {
         let pe = document.createElement('p')
         pe.classList.add('h')
         pe.classList.add('path')
         pe.style.color = po.color
         pe.innerHTML = `<i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)`
         pe.appendChild(contextMenu(() => {}, () => {}))
-        return pe
+        return row(pe)
     }
     
-    const nodeTemplate = (n, ni, no) => {
+    const _node = (n, ni, no) => {
         let p = document.createElement('p')
         p.classList.add('h')
         p.classList.add('path')
         p.innerHTML = `<i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"`.replace(' ""', '')
         p.appendChild(contextMenu(() => {}, () => {}))
-        return p
+        return row(p)
     }
 
     for (const line in NETWORK.lines) {
         const lineObj = NETWORK.lines[line]
-        tableBody.appendChild(rowTemplate(lineTemplate(line, lineObj)))
+        tableBody.appendChild(_line(line, lineObj))
         
         for (const path in lineObj.paths) {
             const pathObj = lineObj.paths[path]
-            tableBody.appendChild(rowTemplate(pathTemplate(path, pathObj)))
+            tableBody.appendChild(_path(path, pathObj))
 
             for (const node in pathObj.nodes) {
                 const nodeIndex = pathObj.nodes[node]
                 const nodeObj = NETWORK.nodes[nodeIndex]
 
                 if (hide_nodes && nodeObj.name == "") console.log(`Skipped node '${nodeIndex}' at position ${node}`)
-                else tableBody.appendChild(rowTemplate(nodeTemplate(node, nodeIndex, nodeObj)))
+                else tableBody.appendChild(_node(node, nodeIndex, nodeObj))
             }
         }
     }
