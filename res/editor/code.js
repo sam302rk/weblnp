@@ -299,35 +299,86 @@ function selectPath(line, path) {
 // ----------------
 
 function generateHierarchy(hide_nodes) {
-    const rowTemplate = inp => `<tr><td>${inp}</td></tr>`
-    const contextMenu = `<a class="right"><i class="bi bi-sliders"></i> <i class="bi bi-trash"></i></a>`
-    const lineTemplate = (l, lo) => `<p class="h line" style="color: ${lo.color};"><i class="bi bi-minecart"></i> Line "${l}" ${contextMenu}</p>`
-    const pathTemplate = (p, po) => `<p class="h path" style="color: ${po.color};"><i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)  ${contextMenu}</p>`
-    const nodeTemplate = (n, ni, no) => `<p class="h node"><i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"  ${contextMenu}</p>`.replace(' ""', '')
-    let content = ""
+    let table = document.createElement('table')
+    let tableBody = document.createElement('tbody')
+
+    const rowTemplate = inp => {
+        let tr = document.createElement('tr')
+        let td = document.createElement('td')
+        td.appendChild(inp)
+        tr.appendChild(td)
+        return tr
+    }
+
+    const contextMenu = (cb_properties, cb_trash) => {
+        let a = document.createElement('a')
+        a.classList.add('right')
+        a.innerHTML = `<i class="bi bi-sliders"></i> <i class="bi bi-trash"></i>`
+        a.querySelector('i.bi.bi-sliders').addEventListener('click', () => cb_properties())
+        a.querySelector('i.bi.bi-trash').addEventListener('click', () => cb_trash())
+        return a
+    }
+
+    //const contextMenu = `<a class="right"><i class="bi bi-sliders"></i> <i class="bi bi-trash"></i></a>`
+    //const rowTemplate = inp => `<tr><td>${inp}</td></tr>`
+    //const lineTemplate = (l, lo) => `<p class="h line" style="color: ${lo.color};"><i class="bi bi-minecart"></i> Line "${l}" ${contextMenu}</p>`
+    //const pathTemplate = (p, po) => `<p class="h path" style="color: ${po.color};"><i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)  ${contextMenu}</p>`
+    //const nodeTemplate = (n, ni, no) => `<p class="h node"><i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"  ${contextMenu}</p>`.replace(' ""', '')
+    
+    const lineTemplate = (l, lo) => {
+        let p = document.createElement('p')
+        p.classList.add('h')
+        p.classList.add('line')
+        p.style.color = lo.color
+        p.innerHTML = `<i class="bi bi-minecart"></i> Line "${l}"`
+        p.appendChild(contextMenu(() => {}, () => {}))
+        return p
+    }
+    
+    const pathTemplate = (p, po) => {
+        let pe = document.createElement('p')
+        pe.classList.add('h')
+        pe.classList.add('path')
+        pe.style.color = po.color
+        pe.innerHTML = `<i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)`
+        pe.appendChild(contextMenu(() => {}, () => {}))
+        return pe
+    }
+    
+    const nodeTemplate = (n, ni, no) => {
+        let p = document.createElement('p')
+        p.classList.add('h')
+        p.classList.add('path')
+        p.innerHTML = `<i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"`.replace(' ""', '')
+        p.appendChild(contextMenu(() => {}, () => {}))
+        return p
+    }
 
     for (const line in NETWORK.lines) {
         const lineObj = NETWORK.lines[line]
-        content += rowTemplate(lineTemplate(line, lineObj))
+        tableBody.appendChild(rowTemplate(lineTemplate(line, lineObj)))
         
         for (const path in lineObj.paths) {
             const pathObj = lineObj.paths[path]
-            content += rowTemplate(pathTemplate(path, pathObj))
+            tableBody.appendChild(rowTemplate(pathTemplate(path, pathObj)))
 
             for (const node in pathObj.nodes) {
                 const nodeIndex = pathObj.nodes[node]
                 const nodeObj = NETWORK.nodes[nodeIndex]
 
                 if (hide_nodes && nodeObj.name == "") console.log(`Skipped node '${nodeIndex}' at position ${node}`)
-                else content += rowTemplate(nodeTemplate(node, nodeIndex, nodeObj))
+                else tableBody.appendChild(rowTemplate(nodeTemplate(node, nodeIndex, nodeObj)))
             }
         }
     }
-    return `<table><tbody>${content}</tbody></table>`
+
+    table.appendChild(tableBody)
+    return table
 }
 
 function regenerateHierarchy(hide_nodes) {
-    document.getElementById('hierarchy').innerHTML = generateHierarchy(hide_nodes)
+    document.getElementById('hierarchy').innerHTML = ''
+    document.getElementById('hierarchy').appendChild(generateHierarchy(hide_nodes))
 }
 
 onClick('refresh_hierarchy', () => {
