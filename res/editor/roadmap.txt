@@ -1,9 +1,11 @@
 Finish Hierarchy:
 + Make nodes visible under paths @ Hierarchy
 + Remove radio button & arrow, instead use margins
+- Context menu
+    Properties, Remove
 
 Finish Nodes:
-- Hide Nodes Tab (keep for debugging but inactive)
++ Hide Nodes Tab (keep for debugging but inactive)
 
 Unify Properties:
 - Add apply button

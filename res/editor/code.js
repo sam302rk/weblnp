@@ -104,7 +104,7 @@ function inputToNetwork() {
     metaKeys.forEach(key => NETWORK.meta[key] = document.getElementById(`meta_${key}`).value)
 } 
 
-networkToInput()
+//networkToInput()
 
 // -------------------
 //  Click modes logic
@@ -300,9 +300,10 @@ function selectPath(line, path) {
 
 function generateHierarchy(hide_nodes) {
     const rowTemplate = inp => `<tr><td>${inp}</td></tr>`
-    const lineTemplate = (l, lo) => `<p class="h_line" style="color: ${lo.color};"><i class="bi bi-minecart"></i> Line "${l}"</p>`
-    const pathTemplate = (p, po) => `<p class="h_path" style="color: ${po.color};"><i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)</p>`
-    const nodeTemplate = (n, ni, no) => `<p class="h_node"><i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"</p>`.replace(' ""', '')
+    const contextMenu = `<a class="right"><i class="bi bi-sliders"></i> <i class="bi bi-trash"></i></a>`
+    const lineTemplate = (l, lo) => `<p class="h line" style="color: ${lo.color};"><i class="bi bi-minecart"></i> Line "${l}" ${contextMenu}</p>`
+    const pathTemplate = (p, po) => `<p class="h path" style="color: ${po.color};"><i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)  ${contextMenu}</p>`
+    const nodeTemplate = (n, ni, no) => `<p class="h node"><i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"  ${contextMenu}</p>`.replace(' ""', '')
     let content = ""
 
     for (const line in NETWORK.lines) {
@@ -328,6 +329,10 @@ function generateHierarchy(hide_nodes) {
 function regenerateHierarchy(hide_nodes) {
     document.getElementById('hierarchy').innerHTML = generateHierarchy(hide_nodes)
 }
+
+onClick('refresh_hierarchy', () => {
+    regenerateHierarchy(false)
+})
 
 // ---------------------
 //  Path <-> Node logic
@@ -445,7 +450,12 @@ function loadFromFile() {
             readFile(file, txt => {
                 NETWORK = JSON.parse(txt)
 
-                networkToInput()
+                try {
+                    // FIXME
+                    networkToInput()
+                } catch(e) {
+                    console.log('networkToInput broken')
+                }
                 redrawNodes()
                 redrawPaths(true)
             })

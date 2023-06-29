@@ -227,8 +227,14 @@ td input {
     width: 100%;
 }
 
+#hierarchy {
+    overflow: scroll;
+    max-height: calc(100vh - 124px);
+}
+
 #console {
     overflow: scroll;
+    margin: 16px 16px;
 }
 
 .bottom.window {
@@ -357,21 +363,63 @@ section.too-small {
         transition: grid .2s;
     }
 
-
     .bottom {
         display: none;
     }
 }
 
-.h_path {
+p.h:hover {
+    text-decoration: underline dashed;
+    text-underline-offset: 4px;
+}
+
+p.h:active {
+    text-decoration: underline solid;
+    text-underline-offset: 4px;
+}
+
+p.h.active {
+    text-decoration: underline solid;
+    text-underline-offset: 4px;
+}
+
+p.h.path {
     margin-left: 12px;
 }
 
-.h_node {
+p.h.node {
     margin-left: 24px;
-
 }
 
 .top.window {
     background-color: var(--ctp-mocha-mantle);
+}
+
+.leaflet-top.leaflet-left {
+    display: none !important;
+}
+
+.leaflet-bottom.leaflet-right {
+    display: none !important;
+}
+
+p.h .right {
+    display: none;
+}
+
+p.h.active .right {
+    display: inline;
+}
+
+.right {
+    float: right;
+}
+
+a.right i:hover {
+    cursor: pointer;
+    color: var(--ctp-mocha-lavender);
+}
+
+a.right i.bi-trash:hover {
+    color: var(--ctp-mocha-red) !important;
 }
