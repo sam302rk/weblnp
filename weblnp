@@ -12,7 +12,26 @@ case $1 in
     
     serve)
         echo "Starting local web server..."
-        python -m http.server
+
+        if hash screen 2>/dev/null
+        then
+            echo "Found 'screen' in the enviroment."
+            echo "Access the server by running 'weblnp attach'"
+            screen -S "WEBLNP_WEB_SERVER" -d -m python -m http.server
+        else
+            echo "Couldn't find 'screen' in the enviroment."
+            python -m http.server
+        fi
+    ;;
+
+    attach)
+        if hash screen 2>/dev/null
+        then
+            echo "Attaching to the local web server..."
+            screen -rx WEBLNP_WEB_SERVER
+        else
+            echo "Couldn't find 'screen' in the enviroment."
+        fi
     ;;
 
     sort)
