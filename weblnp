@@ -55,6 +55,7 @@ case $1 in
         echo "=========         ============="
         echo "weblnp help       Shows you a list with commands"
         echo "weblnp serve      Runs the local web server"
+        echo "weblnp attach     Access the instance of the local web server. (Requires 'screen')"
         echo "weblnp sort       Sorts KML files into city-folders"
         echo "weblnp reload     Reloads the dev enviroment."
         echo "weblnp exit       Exits out of the dev enviroment and disables the weblnp command"
