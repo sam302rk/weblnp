@@ -3,29 +3,15 @@
 // ---------------
 
 (() => {
-    let log = console.log
-    console.log = (txt) => {
-        document.getElementById('console').innerHTML += `\n<span class="lavender">LOG: ${txt}</span>`
+    function run(log, txt, clr) {
+        document.getElementById('console').innerHTML += `\n<span class="${clr}">LOG: ${txt}</span>`
         log(txt)
     }
 
-    let error = console.error
-    console.error = (txt) => {
-        document.getElementById('console').innerHTML += `\n<span class="red">ERROR: ${txt}</span>`
-        error(txt)
-    }
-
-    let warn = console.warn
-    console.warn = (txt) => {
-        document.getElementById('console').innerHTML += `\n<span class="yellow">WARN: ${txt}</span>`
-        warn(txt)
-    }
-
-    let info = console.info
-    console.info = (txt) => {
-        document.getElementById('console').innerHTML += `\n<span class="green">INFO: ${txt}</span>`
-        info(txt)
-    }
+    console.log = (txt) => run(console.log, txt, 'lavender')
+    console.error = (txt) => run(console.error, txt, 'red')
+    console.warn = (txt) => run(console.warn, txt, 'yellow')
+    console.info = (txt) => run(console.info, txt, 'green')
 })()
 
 function toggleMinimizedConsole() {
@@ -319,12 +305,6 @@ function generateHierarchy(hide_nodes) {
         return a
     }
 
-    //const contextMenu = `<a class="right"><i class="bi bi-sliders"></i> <i class="bi bi-trash"></i></a>`
-    //const rowTemplate = inp => `<tr><td>${inp}</td></tr>`
-    //const lineTemplate = (l, lo) => `<p class="h line" style="color: ${lo.color};"><i class="bi bi-minecart"></i> Line "${l}" ${contextMenu}</p>`
-    //const pathTemplate = (p, po) => `<p class="h path" style="color: ${po.color};"><i class="bi bi-share"></i> Path #${p} (every ${po.frequency}min)  ${contextMenu}</p>`
-    //const nodeTemplate = (n, ni, no) => `<p class="h node"><i class="bi bi-node-plus"></i> ${Number.parseInt(n)+1}. Node ${ni} "${no.name}"  ${contextMenu}</p>`.replace(' ""', '')
-    
     const _line = (l, lo) => {
         let p = document.createElement('p')
         p.classList.add('h')
@@ -500,15 +480,9 @@ function loadFromFile() {
         try {
             readFile(file, txt => {
                 NETWORK = JSON.parse(txt)
-
-                try {
-                    // FIXME
-                    networkToInput()
-                } catch(e) {
-                    console.log('networkToInput broken')
-                }
                 redrawNodes()
                 redrawPaths(true)
+                regenerateHierarchy(false)
             })
         } catch (e) {
             console.log(file)
