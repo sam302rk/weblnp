@@ -3,14 +3,14 @@ goto %1
 
 REM COMMAND NOT FOUND
 echo Command unknown. Run 'weblnp help' for a list with commands.
-exit
+goto exit
 
 Rem SERVE
 :serve
 call :choose_python
 echo Starting local web server...
 %pyenv% -m http.server
-exit
+goto exit
 
 REM SORT
 :sort
@@ -19,12 +19,12 @@ echo Running sort script...
 cd kml
 %pyenv% sort.py
 cd ..
-exit
+goto exit
 
 REM LICENSE
 :license
 type LICENSE
-exit
+goto exit
 
 REM HELP
 :help
@@ -39,9 +39,11 @@ echo weblnp license    Displays the repository's license.
 REM echo weblnp reload     Reloads the dev enviroment.
 REM echo weblnp exit       Exits out of the dev enviroment and disables the weblnp command
 echo.
-exit
+goto exit
 
 :choose_python
 echo Enter a python enviroment of your choice:
 echo (Leave blank for default 'python'.)
 set /p pyenv= || set pyenv=python
+
+:exit
