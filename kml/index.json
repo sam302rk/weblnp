@@ -28,13 +28,15 @@
         "Weiden",
         "Würzburg",
         "S-Bahn",
-        "Rastatt"
+        "Rastatt",
+        "Bruchsal"
     ],
     "cityData": {
         "Karlsruhe": {
             "icon": "icon.svg",
             "variants": [
-                "2023",
+                "Tram 2023",
+                "Bus 2023",
                 "2021",
                 "2018",
                 "2012",
