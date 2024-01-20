@@ -42,6 +42,6 @@ case $1 in
     ;;
     
     *)
-        echo -n "Command unknown. Run 'weblnp help' for a list with commands."
+        echo "Command unknown. Run 'weblnp help' for a list with commands."
     ;;
 esac

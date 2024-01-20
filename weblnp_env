@@ -1,4 +1,4 @@
-echo "WebLNP's dev enviroment is now availible via 'weblnp'"
+echo "WebLNP's dev enviroment is now available via 'weblnp'"
 echo "Use 'weblnp help' for a list with commands and exit using 'weblnp exit'."
 
 function weblnp() {
