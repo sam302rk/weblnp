@@ -19,8 +19,8 @@ View Command Overview | `./weblnp help` | `weblnp help` | Display a list with co
 Start WebLNP | `./weblnp serve` | `weblnp serve` | Starts a minimal static web server for Testing.<br>Runs on `localhost:8000`.<br>Requires Python 3.
 Sort KML files | `./weblnp sort` | `weblnp sort` | All KML files in the root `kml` directory get their own directory named after the file<br>and the file itself gets moved inside renamed to `main.kml`.<br>Requires Python 3.
 View License | `./weblnp license` | `weblnp license` | Prints the license of WebLNP.<br>Requires GNU `cat` when using the Bash version.
-Reload Enviroment | `./weblnp reload` | (not included) | Rebinds the WebLNP CLI to the enviroment.
-Exit Enviroment | `./weblnp exit` | (not included) | Removes the WebLNP CLI from the enviroment.
+Reload Enviroment | `./weblnp reload` | (not included) | Rebinds the WebLNP CLI to the enviroment.<br>[Learn more](#weblnp-as-enviroment-function-linux)
+Exit Enviroment | `./weblnp exit` | (not included) | Removes the WebLNP CLI from the enviroment.<br>[Learn more](#weblnp-as-enviroment-function-linux)
 
 </details>
 
