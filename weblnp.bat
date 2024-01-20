@@ -1,19 +1,15 @@
 @echo off
+cls
 
-if "%1"== "" (
-    goto not_found
-) else (
-    goto %1
-    goto not_found
-)
-
+call :%1
+goto not_found
 
 Rem SERVE
 :serve
 call :choose_python
 echo Starting local web server...
 %pyenv% -m http.server
-goto exit
+goto :eof
 
 REM SORT
 :sort
@@ -22,12 +18,12 @@ echo Running sort script...
 cd kml
 %pyenv% sort.py
 cd ..
-goto exit
+goto :eof
 
 REM LICENSE
 :license
 type LICENSE
-goto exit
+goto :eof
 
 REM HELP
 :help
@@ -42,16 +38,14 @@ echo weblnp license    Displays the repository's license.
 REM echo weblnp reload     Reloads the dev enviroment.
 REM echo weblnp exit       Exits out of the dev enviroment and disables the weblnp command
 echo.
-goto exit
+goto :eof
 
 :choose_python
 echo Enter a python enviroment of your choice:
 echo (Leave blank for default 'python'.)
 set /p pyenv= || set pyenv=python
-goto exit
+goto :eof
 
 :not_found
 echo Command unknown. Run 'weblnp help' for a list with commands.
-goto exit
-
-:exit
+goto :eof
