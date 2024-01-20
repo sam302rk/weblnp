@@ -11,41 +11,24 @@ with the ability to add historic maps and/or different transit maps per city.
 
 ## Development
 
-<details><summary><b>Requirements</b></summary>
+<details><summary><h3>CLI Command Overview</h3></summary>
 
-- Bash
-- Python 3
-
-</details>
-
-<details><summary><b>Using the dev enviroment on Linux</b></summary>
-
-You can either choose to run `source weblnp_env` to enable the `weblnp` command or you can run `./weblnp` directly, if you prefer to not modify your enviroment.
-
-</details>
-
-<details><summary><b>Using the dev enviroment on Windows</b></summary>
-
-The dev enviroment can be used on Windows by calling the `weblnp.bat` file inside the Command Prompt or via the PowerShell.
+Action | Linux/MacOS | Windows | Description
+------ | ----------- | ------- | -----------
+View Command Overview | `./weblnp help` | `weblnp help` | Display a list with commands available on your platform.
+Start WebLNP | `./weblnp serve` | `weblnp serve` | Starts a minimal static web server for Testing.<br>Runs on `localhost:8000`.<br>Requires Python 3.
+Sort KML files | `./weblnp sort` | `weblnp sort` | All KML files in the root `kml` directory get their own directory named after the file<br>and the file itself gets moved inside renamed to `main.kml`.<br>Requires Python 3.
+View License | `./weblnp license` | `weblnp license` | Prints the license of WebLNP.<br>Requires GNU `cat` when using the Bash version.
+Reload Enviroment | `./weblnp reload` | (not included) | Rebinds the WebLNP CLI to the enviroment.
+Exit Enviroment | `./weblnp exit` | (not included) | Removes the WebLNP CLI from the enviroment.
 
 </details>
 
-<details><summary><b>Development without the dev enviroment</b></summary>
-
-If you prefer to not use the dev enviroment or your OS is not supported, you can directly run the web server with `python -m "http.server"`.
-
-> **Note**<br/>
-> You can also use other static web servers if required.<br>
-> But please add any dotfiles or configs<br>
-> which might be generated to the `.gitignore`.
-
-</details>
-
-<details><summary>Contributing</summary>
+<details><summary><h3>Contributing</h3></summary>
 
 ```sh
 # 1. Fork it
-# https://github.com/samuel-302/weblnp/fork
+# https://github.com/sam302rk/weblnp/fork
 
 # 2. Create your feature branch
 $ git checkout -b feature/fooBar
@@ -62,10 +45,32 @@ $ git push origin feature/fooBar
 
 </details>
 
+<details><summary><h3>WebLNP as enviroment function (Linux)</h3></summary>
+
+For convenience you can also bind the function `weblnp()` running `./weblnp $1` under the hood into the enviroment.
+
+```sh
+# Expose function to the enviroment
+$ source ./weblnp_env
+
+# Calling the CLI via the enviroment instead of using the Bash file directly
+$ weblnp <command>
+
+# Reload
+$ weblnp reload # ...or
+$ ./weblnp reload
+
+# Remove from enviroment
+$ weblnp exit # or...
+$ ./weblnp exit
+```
+
+</details>
+
 ## Meta
 
 ### Contributors
-- [Sam M.](https://www.github.com/samuel-302) – [@sam302](https://zug.network/@sam302)
+- [Sam M.](https://www.github.com/sam302rk) – [@sam302](https://zug.network/@sam302)
 - Ebou B. – [@ebou.bobb](https://www.instagram.com/ebou.bobb/)
 - Justin O. – [@\_justin\_oltmann\_](https://www.instagram.com/_justin_oltmann_/)
 - [Mario C.](https://github.com/marioboss56) - [@Mariology](https://soundcloud.com/riomusic01)
