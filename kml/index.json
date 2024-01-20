@@ -12,7 +12,7 @@
         "Freiburg",
         "Heidelberg",
         "Heilbronn",
-        "Karlsruhe",
+        "Karlsruhe (aktuell)",
         "Kassel",
         "Konstanz",
         "Ludwigsburg",
@@ -29,24 +29,29 @@
         "Würzburg",
         "S-Bahn",
         "Rastatt",
-        "Bruchsal"
+        "Bruchsal",
+        "Karlsruhe (historisch)"
     ],
     "cityData": {
-        "Karlsruhe": {
+        "Karlsruhe (aktuell)": {
             "icon": "icon.svg",
             "variants": [
-                "Tram 2023",
-                "Bus 2023",
-                "2021",
-                "2018",
-                "2012",
-                "2004",
-                "2002",
-                "1997",
+                "Tram VBK",
+                "Bus VBK",
+                "Stadtbahn AVG",
+                "Bus AVG"
+            ]
+        },
+        "Karlsruhe (historisch)": {
+            "icon": "icon.svg",
+            "variants": [
                 "1989",
-                "Bauphase 1 ab 17.04.23",
-                "Bauphase 2 ab 30.05.23",
-                "Bauphase 3 ab 07.06.23"
+                "1997",
+                "2002",
+                "2004",
+                "2012",
+                "2018",
+                "2021"
             ]
         },
         "Berlin": {
