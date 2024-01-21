@@ -26,7 +26,8 @@ const languages = {
         "options.title": "--- Opțiunile orașului ---",
         "options.layer.default": "Alege un strat...",
         "options.save": "Încarcă",
-        "error.confirm_upload": "A apărut o eroare.\nVrei să raportezi eroarea automat?\nDoar eroarea fără alte detalii va fii timisă."
+        "error.confirm_upload": "A apărut o eroare.\nVrei să raportezi eroarea automat?\nDoar eroarea fără alte detalii va fii timisă.",
+        "line.popup.authors": "Autor: "
     },
 }
 
