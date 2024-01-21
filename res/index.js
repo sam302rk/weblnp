@@ -65,10 +65,11 @@ function loadLayer(name, layer) {
         layers.pop(l)
     })
 
-    fetchKML(`kml/${name}/${layer}.kml`, r => {
-        layers.push({ layer: r, name: name, add: layer })
+    fetchKML(`kml/${name}/${layer}.kml`, track => {
+        layers.push({ layer: track, name: name, add: layer })
         document.getElementById(name).classList.add('active')
-        map.addLayer(r)
+
+        map.addLayer(track)
 
         // TODO: Make async
         for (let path of document.querySelectorAll('path.leaflet-interactive')) {

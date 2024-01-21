@@ -215,3 +215,69 @@ select:active {
     width: .7em;
     vertical-align: middle;
 }
+
+.leaflet-popup-content {
+    width: unset !important;
+}
+
+.popup_station {
+    width: 512px;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 32px;
+}
+
+.popup_station:nth-child(even) {
+    background-color: rgb(230, 230, 230);
+}
+
+.popup_station > img {
+    display: inline-block;
+    width: 32px;
+    margin: 0px 6px;
+}
+
+.popup_station:first-of-type > img {
+    content: url("/res/node_first.svg");
+}
+
+.popup_station:last-of-type > img {
+    content: url("/res/node_last.svg");
+}
+
+.popup_station:first-of-type > p {
+    font-weight: bold;
+}
+
+.popup_station:last-of-type > p {
+    font-weight: bold;
+}
+
+.popup_station > p {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -4px;
+}
+
+.popup_station_list {
+    max-height: 256px;
+    overflow-y: scroll;
+    background-color: rgb(240, 240, 240);
+}
+
+.popup_station_list p.meta {
+    margin: 16px;
+}
+
+.line {
+    margin: 8px;
+    color: #ffffff;
+    padding: 4px 8px;
+}
+
+.line.rounded {
+    border-radius: 8px;
+}
+
+.line.pill {
+    border-radius: 33px;
+}

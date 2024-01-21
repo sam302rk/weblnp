@@ -6,7 +6,8 @@ const languages = {
         "options.title": "--- City options ---",
         "options.layer.default": "Choose a layer...",
         "options.save": "Load",
-        "error.confirm_upload": "An error occured.\nDo you wish to automatically report that error?\nOnly the error without any additional details will be sent out."
+        "error.confirm_upload": "An error occured.\nDo you wish to automatically report that error?\nOnly the error without any additional details will be sent out.",
+        "line.popup.authors": "Authors: "
     },
     "de-DE": { // German
         "search.placeholder": "Stadt...",
@@ -15,7 +16,8 @@ const languages = {
         "options.title": "--- Stadtoptionen ---",
         "options.layer.default": "Wähle eine Ebene...",
         "options.save": "Übernehmen",
-        "error.confirm_upload": "Ein unerwarteter Fehler ist aufgetreten.\nMöchtest du, dass dieser automatisch gemeldet wird?\nNur der Fehler ohne zusätzliche Informationen wird versendet."
+        "error.confirm_upload": "Ein unerwarteter Fehler ist aufgetreten.\nMöchtest du, dass dieser automatisch gemeldet wird?\nNur der Fehler ohne zusätzliche Informationen wird versendet.",
+        "line.popup.authors": "Autor*innen: "
     },
         "ro-RO": { // Romanian
         "search.placeholder": "Oraș...",
