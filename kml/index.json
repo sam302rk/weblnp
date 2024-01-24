@@ -31,7 +31,7 @@
         "Rastatt",
         "Bruchsal",
         "Karlsruhe (historisch)",
-        "Testing"
+        "Nationalpark Schwarzwald"
     ],
     "cityData": {
         "Karlsruhe (aktuell)": {
@@ -66,7 +66,8 @@
         "S-Bahn": {
             "icon": "icon.svg",
             "variants": [
-                "Rhein-Neckar"
+                "Rhein-Neckar",
+                "Ortenau"
             ]
         },
         "Braunschweig": {
