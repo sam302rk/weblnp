@@ -270,15 +270,9 @@ L.Util.extend(L.KML, {
         }
 
         if (name) {
-            const params = descr.split('\n')
-            if (params.length == 7) {
-                const stations = params[5].split(',')
-                let stationBody = ''
-                for (const station of stations) stationBody += `<div class="popup_station"><img src="/res/node.svg"><p>${station}</p></div>\n`
-                layer.bindPopup(`<h2><span class="line ${params[3]}" style="background-color: ${params[4]};">${params[0]}</span> ${params[1]}</h2><div class="popup_station_list">${stationBody}<p class="meta">${tryTranslation("line.popup.authors")+params[2]}</p></div>`)
-            } else {
-                layer.bindPopup('<h2>' + name + '</h2>' + descr, { className: 'kml-popup' });
-            }
+            popup = `<h2>${name}</h2>${descr}`
+            if (hasMetadata(name)) popup = renderPopup(name)
+            layer.bindPopup(popup, { className: 'kml-popup' })
         }
     },
 

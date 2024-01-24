@@ -20,6 +20,14 @@ cd kml
 cd ..
 goto :eof
 
+REM META
+:meta
+call :choose_python
+cd kml
+%pyenv% meta.py
+cd ..
+goto :eof
+
 REM LICENSE
 :license
 type LICENSE
@@ -32,8 +40,9 @@ type meta\header.txt
 echo  COMMAND           DESCRIPTION
 echo =========         =============
 echo weblnp help       Shows you a list with commands
-echo weblnp serve      Runs the local web server
 echo weblnp sort       Sorts KML files into city-folders
+echo weblnp meta       Generate empty meta files for every KML layer.
+echo weblnp serve      Runs the local web server
 echo weblnp license    Displays the repository's license.
 REM echo weblnp reload     Reloads the dev enviroment.
 REM echo weblnp exit       Exits out of the dev enviroment and disables the weblnp command
@@ -41,10 +50,9 @@ echo.
 goto :eof
 
 :choose_python
-echo Enter a python enviroment of your choice:
+echo Enter your Python executable:
 echo (Leave blank for default 'python'.)
 set /p pyenv= || set pyenv=python
-goto :eof
 
 :not_found
 echo Command unknown. Run 'weblnp help' for a list with commands.

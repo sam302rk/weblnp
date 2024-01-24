@@ -2,6 +2,7 @@ var map = L.map('map').setView([50.69, 9.77], 6.2)
 let index = {}
 let layers = []
 const template = (name, text, icon) => `<div class="hvrc" id="${name}"><span class="hvr">-> </span><a onclick="citySearchResultClick('${name}', 'main')">${icon.exists ? `<img class="city_icon" src="/kml/${name}/${icon.url}">` : ''} ${tryTranslation(text)}</a></div>`
+let currentMetadata = {}
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 16,
@@ -55,7 +56,6 @@ function generateCity(city, readable) {
     }
     
     return template(city, readable, icon_data)
-    
 }
 
 function loadLayer(name, layer) {
@@ -63,6 +63,10 @@ function loadLayer(name, layer) {
         map.removeLayer(l.layer)
         document.getElementById(l.name).classList.remove('active')
         layers.pop(l)
+    })
+
+    fetchText(`kml/${name}/${layer}.json`, jsonText => {
+        currentMetadata = JSON.parse(jsonText)
     })
 
     fetchKML(`kml/${name}/${layer}.kml`, track => {
@@ -115,4 +119,16 @@ function sat() {
         attribution: '<a href="http://www.esri.com/">Esri</a>, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
         maxZoom: 18,
     }).addTo(map)
+}
+
+function hasMetadata(name) {
+    return currentMetadata[name] != undefined
+}
+
+function renderPopup(name) {
+    const meta = currentMetadata[name]
+    let stationBody = ''
+    for (const station of meta.stations) stationBody += `<div class="popup_station"><img src="/res/node.svg"><p>${station}</p></div>\n`
+    return `<h2><span class="line ${meta.style}" style="background-color: ${meta.color};">${meta.line}</span> ${meta.stations[0]} - ${meta.stations[meta.stations.length - 1]}</h2>
+    <div class="popup_station_list">${stationBody}<p class="meta">${tryTranslation("line.popup.operated_by")+meta.operator}</p></div>`
 }

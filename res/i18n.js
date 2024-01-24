@@ -7,7 +7,8 @@ const languages = {
         "options.layer.default": "Choose a layer...",
         "options.save": "Load",
         "error.confirm_upload": "An error occured.\nDo you wish to automatically report that error?\nOnly the error without any additional details will be sent out.",
-        "line.popup.authors": "Authors: "
+        "line.popup.authors": "Authors: ",
+        "line.popup.operated_by": "Operated by "
     },
     "de-DE": { // German
         "search.placeholder": "Stadt...",
@@ -17,7 +18,8 @@ const languages = {
         "options.layer.default": "Wähle eine Ebene...",
         "options.save": "Übernehmen",
         "error.confirm_upload": "Ein unerwarteter Fehler ist aufgetreten.\nMöchtest du, dass dieser automatisch gemeldet wird?\nNur der Fehler ohne zusätzliche Informationen wird versendet.",
-        "line.popup.authors": "Autor*innen: "
+        "line.popup.authors": "Autor*innen: ",
+        "line.popup.operated_by": "Betrieben durch "
     },
         "ro-RO": { // Romanian
         "search.placeholder": "Oraș...",
@@ -27,7 +29,8 @@ const languages = {
         "options.layer.default": "Alege un strat...",
         "options.save": "Încarcă",
         "error.confirm_upload": "A apărut o eroare.\nVrei să raportezi eroarea automat?\nDoar eroarea fără alte detalii va fii timisă.",
-        "line.popup.authors": "Autor: "
+        "line.popup.authors": "Autor: ",
+        "line.popup.operated_by": "Operated by "
     },
 }
 

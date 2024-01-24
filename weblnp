@@ -22,6 +22,11 @@ case $1 in
         cd ..
     ;;
 
+    meta)
+        cd kml
+        python meta.py
+        cd ..
+
     license)
         cat LICENSE
     ;;
@@ -37,6 +42,7 @@ case $1 in
         echo "weblnp help       Shows you a list with commands"
         echo "weblnp serve      Runs the local web server"
         echo "weblnp sort       Sorts KML files into city-folders"
+        echo "weblnp meta       Generate empty meta files for every KML layer."
         echo "weblnp reload     Reloads the dev enviroment."
         echo "weblnp exit       Exits out of the dev enviroment and disables the weblnp command"
     ;;
