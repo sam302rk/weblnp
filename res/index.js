@@ -128,7 +128,9 @@ function hasMetadata(name) {
 function renderPopup(name) {
     const meta = currentMetadata[name]
     let stationBody = ''
+    let textColor = ''
+    if (meta.textColor != undefined) textColor = `color: ${meta.textColor} !important;`
     for (const station of meta.stations) stationBody += `<div class="popup_station"><img src="/res/node.svg"><p>${station}</p></div>\n`
-    return `<h2><span class="line ${meta.style}" style="background-color: ${meta.color};">${meta.line}</span> ${meta.stations[0]} - ${meta.stations[meta.stations.length - 1]}</h2>
+    return `<h2><span class="line ${meta.style}" style="background-color: ${meta.color}; ${textColor}">${meta.line}</span> ${meta.stations[0]} - ${meta.stations[meta.stations.length - 1]}</h2>
     <div class="popup_station_list">${stationBody}<p class="meta">${tryTranslation("line.popup.operated_by")+meta.operator}</p></div>`
 }
