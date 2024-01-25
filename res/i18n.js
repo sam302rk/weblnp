@@ -30,7 +30,7 @@ const languages = {
         "options.save": "Încarcă",
         "error.confirm_upload": "A apărut o eroare.\nVrei să raportezi eroarea automat?\nDoar eroarea fără alte detalii va fii timisă.",
         "line.popup.authors": "Autor: ",
-        "line.popup.operated_by": "Operated by "
+        "line.popup.operated_by": "Operat de "
     },
 }
 
