@@ -59,7 +59,7 @@
             "icon": "icon.svg",
             "variants": [
                 "S-Bahn",
-                "Strassenbahn",
+                "Tram",
                 "U-Bahn"
             ]
         },
@@ -73,7 +73,13 @@
         "Braunschweig": {
             "variants": [
                 "Bus",
-                "Strassenbahn"
+                "Tram"
+            ]
+        },
+        "Heidelberg": {
+            "variants": [
+                "Bus",
+                "Tram"
             ]
         }
     }
