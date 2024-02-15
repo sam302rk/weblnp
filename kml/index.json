@@ -81,6 +81,14 @@
                 "Bus",
                 "Tram"
             ]
+        },
+        "München": {
+            "variants": [
+                "Tram",
+                "S-Bahn",
+                "U-Bahn",
+                "2. Stammstrecke"
+            ]
         }
     }
 }
