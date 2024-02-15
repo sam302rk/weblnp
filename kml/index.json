@@ -67,7 +67,8 @@
             "icon": "icon.svg",
             "variants": [
                 "Rhein-Neckar",
-                "Ortenau"
+                "Ortenau",
+                "München"
             ]
         },
         "Braunschweig": {
@@ -85,7 +86,6 @@
         "München": {
             "variants": [
                 "Tram",
-                "S-Bahn",
                 "U-Bahn",
                 "2. Stammstrecke"
             ]
